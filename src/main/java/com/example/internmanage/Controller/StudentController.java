@@ -46,6 +46,6 @@ public class StudentController {
     @RequestMapping("delete")
     @ResponseBody
     public R studentDelete(@RequestBody Student student){
-        return studentService.delelte(student.getStu_id());
+        return studentService.delete(student.getStu_id());
     }
 }

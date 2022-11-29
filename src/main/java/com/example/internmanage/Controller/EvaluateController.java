@@ -4,15 +4,15 @@ import com.example.internmanage.Entity.Evaluate;
 import com.example.internmanage.Services.EvaluateService;
 import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("evaluate")
 public class EvaluateController {
     @Autowired

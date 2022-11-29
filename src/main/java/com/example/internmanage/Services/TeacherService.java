@@ -35,7 +35,7 @@ public class TeacherService {
         return teacherMapper.selectAll();
     }
 
-    public R delelte(int t_id){
+    public R delete(int t_id){
         if(teacherMapper.delete(t_id)!=0)
             return R.success();
         else return R.failed();

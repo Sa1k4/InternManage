@@ -4,12 +4,12 @@ import com.example.internmanage.Entity.Admin;
 import com.example.internmanage.Services.AdminService;
 import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("admin")
 public class AdminController {
     @Autowired

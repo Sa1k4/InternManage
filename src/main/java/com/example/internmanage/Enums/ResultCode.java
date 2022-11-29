@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum ResultCode {
-    SUCCESS(true,2000,"成功"),
-    FAILED(false,4000,"失败"),
-    ERROR(false,5000,"未知错误");
+    SUCCESS(true,200,"成功"),
+    FAILED(false,400,"失败"),
+    ERROR(false,500,"未知错误");
 
     private final Boolean success;
 
