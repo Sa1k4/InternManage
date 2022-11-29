@@ -3,8 +3,8 @@ package com.example.internmanage.Controller;
 import com.example.internmanage.Entity.Evaluate;
 import com.example.internmanage.Services.EvaluateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("evaluate")
 public class EvaluateController {
     @Autowired
     private EvaluateService evaluateService;
@@ -19,16 +20,16 @@ public class EvaluateController {
     //学生查看老师给自己的评价
     @RequestMapping("studentSelectEvaT")
     @ResponseBody
-    public List<Evaluate> studentSelectEvaT(HttpServletRequest request){
-        int stu_id = Integer.parseInt(request.getParameter("stu_id"));
+    public List<Evaluate> studentSelectEvaT(@RequestBody Evaluate evaluate){
+        int stu_id = evaluate.getStu_id();
         return evaluateService.studentSelectEvaT(stu_id);
     }
 
     //学生看企业给自己评价
     @RequestMapping("studentSelectEvaC")
     @ResponseBody
-    public List<Evaluate> studentSelectEvaC(HttpServletRequest request){
-        int stu_id = Integer.parseInt(request.getParameter("stu_id"));
+    public List<Evaluate> studentSelectEvaC(@RequestBody Evaluate evaluate){
+        int stu_id = evaluate.getStu_id();
         return evaluateService.studentSelectEvaC(stu_id);
     }
 
