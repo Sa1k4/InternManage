@@ -1,55 +1,42 @@
 package com.example.internmanage.Controller;
 
-import com.example.internmanage.Entity.Company;
 import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("student")
 public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping("studentLogin")
+    @RequestMapping("login")
     @ResponseBody
-    public String studentLogin(HttpServletRequest request){
-        String name = request.getParameter("username");
-        String password = request.getParameter("password");
+    public String studentLogin(@RequestBody Student student){
+        String name = student.getUsername();
+        String password = student.getPassword();
         return studentService.checkLogin(name,password);
     }
 
-    @RequestMapping("studentRegister")
+    @RequestMapping("register")
     @ResponseBody
-    public String studentRegister(HttpServletRequest request){
-        Student student = new Student();
-        student.setStu_id(Integer.parseInt(request.getParameter("stu_id")));
-        student.setUsername(request.getParameter("username"));
-        student.setPassword(request.getParameter("password"));
+    public String studentRegister(@RequestBody Student student){
         return studentService.register(student);
     }
 
-    @RequestMapping("studentUpdate")
+    @RequestMapping("update")
     @ResponseBody
-    public String studentUpdate(HttpServletRequest request){
-        Student student = new Student();
-        student.setStu_id(Integer.parseInt(request.getParameter("stu_id")));
-        student.setUsername(request.getParameter("username"));
-        student.setPassword(request.getParameter("password"));
-        student.setSpecialty(request.getParameter("specialty"));
-        student.setClassname(request.getParameter("classname"));
-        student.setAcademy(request.getParameter("academy"));
-        student.setSex(request.getParameter("sex"));
-        student.setPhone(request.getParameter("phone"));
+    public String studentUpdate(@RequestBody Student student){
         return studentService.update(student);
     }
 
-    @RequestMapping("studentSelect")
+    @RequestMapping("select")
     @ResponseBody
     public List<Student> studentSelect(){
         return studentService.selectAll();
@@ -57,7 +44,7 @@ public class StudentController {
 
     @RequestMapping("studentDelete")
     @ResponseBody
-    public String studentDelete(HttpServletRequest request){
-        return studentService.delelte(Integer.parseInt(request.getParameter("stu_id")));
+    public String studentDelete(@RequestBody Student student){
+        return studentService.delelte(student.getStu_id());
     }
 }
