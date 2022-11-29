@@ -2,6 +2,7 @@ package com.example.internmanage.Controller;
 
 import com.example.internmanage.Entity.Teacher;
 import com.example.internmanage.Services.TeacherService;
+import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class TeacherController {
 
     @RequestMapping("login")
     @ResponseBody
-    public String teacherLogin(@RequestBody Teacher teacher){
+    public R teacherLogin(@RequestBody Teacher teacher){
         String name = teacher.getUsername();
         String password = teacher.getPassword();
         return teacherService.checkLogin(name,password);
@@ -26,13 +27,13 @@ public class TeacherController {
 
     @RequestMapping("register")
     @ResponseBody
-    public String teacherRegister(@RequestBody Teacher teacher){
+    public R teacherRegister(@RequestBody Teacher teacher){
         return teacherService.register(teacher);
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public String teacherUpdate(@RequestBody Teacher teacher){
+    public R teacherUpdate(@RequestBody Teacher teacher){
         return teacherService.update(teacher);
     }
 
@@ -44,7 +45,7 @@ public class TeacherController {
 
     @RequestMapping("delete")
     @ResponseBody
-    public String teacherDelete(@RequestBody Teacher teacher){
+    public R teacherDelete(@RequestBody Teacher teacher){
         return teacherService.delelte(teacher.getT_id());
     }
 }
