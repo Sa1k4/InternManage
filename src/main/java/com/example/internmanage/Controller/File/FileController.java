@@ -1,13 +1,12 @@
 package com.example.internmanage.Controller.File;
 
-import org.springframework.util.ResourceUtils;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -16,6 +15,7 @@ import java.util.Date;
 //上传不要用@Controller,用@RestController
 @RestController
 public class FileController {
+    private final String URL = "C:/uploadFiles/";
     //文件上传
     @PostMapping("/file/upload")
     public String file(MultipartFile file) throws IOException {
@@ -25,8 +25,8 @@ public class FileController {
         System.out.println(file.getInputStream());//文件的输入流
 
         //获得文件上传的路径
-        String path = ResourceUtils.getURL("classpath:").getPath()+"static/files/";
-
+//        String path = ResourceUtils.getURL("classpath:").getPath()+"static/files/";
+        String path = URL;
         System.out.println(path);
         java.io.File newFile=new java.io.File(path);//由于自定义的实体类和java.io.File重名
         //文件夹不存在则重建
@@ -46,7 +46,7 @@ public class FileController {
 //        File file1=new File(fileName,path,time);
 //        fileService.addFile(file1);//调用service方法 将文件信息插入数据库
 
-        return path+fileName;
+        return fileName;
     }
 
     //文件的下载
@@ -55,7 +55,8 @@ public class FileController {
 //        File file = fileService.queryFileById(fileId);
 //        // 获得待下载文件所在文件夹的绝对路径
 //        String realPath =file.getUrl();
-        String url = request.getParameter("company_licence");
+        String url = request.getParameter("url");
+        url=URL+url;
         //获得输入流
         FileInputStream inputStream = new FileInputStream(new java.io.File(url));
         // 设置响应头、以附件形式打开文件
