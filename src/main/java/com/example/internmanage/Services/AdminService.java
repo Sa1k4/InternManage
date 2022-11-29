@@ -1,6 +1,7 @@
 package com.example.internmanage.Services;
 
 import com.example.internmanage.Mapper.AdminMapper;
+import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +10,11 @@ public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-    public String checkLogin(String name,String password){
+    public R checkLogin(String name,String password){
         if(password.equals(adminMapper.checkLogin(name)))
-            return "loginSuccess";
-        else return "loginFailed";
+            return R.success();
+//            return "loginSuccess";
+        else return R.failed();
+//            return "loginFailed";
     }
 }

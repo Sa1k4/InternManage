@@ -1,8 +1,8 @@
 package com.example.internmanage.Services;
 
-import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Entity.Teacher;
 import com.example.internmanage.Mapper.TeacherMapper;
+import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,31 +13,31 @@ public class TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
 
-    public String checkLogin(String username,String password){
+    public R checkLogin(String username, String password){
         if(password.equals(teacherMapper.checkLogin(username)))
-            return "loginSuccess";
-        else return "loginFailed";
+            return R.success();
+        else return R.failed();
     }
 
-    public String register(Teacher teacher){
+    public R register(Teacher teacher){
         if (teacherMapper.register(teacher)!=0)
-            return "regSuccess";
-        else return "regFailed";
+            return R.success();
+        else return R.failed();
     }
 
-    public String update(Teacher teacher){
+    public R update(Teacher teacher){
         if (teacherMapper.update(teacher)!=0)
-            return "updateSuccess";
-        else return "updateFailed";
+            return R.success();
+        else return R.failed();
     }
 
     public List<Teacher> selectAll(){
         return teacherMapper.selectAll();
     }
 
-    public String delelte(int t_id){
+    public R delelte(int t_id){
         if(teacherMapper.delete(t_id)!=0)
-            return "delSuccess";
-        else return "delFailed";
+            return R.success();
+        else return R.failed();
     }
 }

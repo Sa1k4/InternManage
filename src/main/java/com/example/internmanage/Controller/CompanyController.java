@@ -2,6 +2,7 @@ package com.example.internmanage.Controller;
 
 import com.example.internmanage.Entity.Company;
 import com.example.internmanage.Services.CompanyService;
+import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class CompanyController {
 
     @RequestMapping("login")
     @ResponseBody
-    public String companyLogin(@RequestBody Company company){
+    public R companyLogin(@RequestBody Company company){
         String name = company.getUsername();
         String password = company.getPassword();
         return companyService.checkLogin(name,password);
@@ -26,13 +27,13 @@ public class CompanyController {
 
     @RequestMapping("register")
     @ResponseBody
-    public String companyRegister(@RequestBody Company company){
+    public R companyRegister(@RequestBody Company company){
         return companyService.register(company);
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public String companyUpdate(@RequestBody Company company){
+    public R companyUpdate(@RequestBody Company company){
         return companyService.update(company);
     }
 
@@ -44,7 +45,7 @@ public class CompanyController {
 
     @RequestMapping("delete")
     @ResponseBody
-    public String companyDelete(@RequestBody Company company){
+    public R companyDelete(@RequestBody Company company){
         return companyService.delelte(company.getCpmy_id());
     }
 

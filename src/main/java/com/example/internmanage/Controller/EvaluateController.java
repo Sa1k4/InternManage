@@ -2,6 +2,7 @@ package com.example.internmanage.Controller;
 
 import com.example.internmanage.Entity.Evaluate;
 import com.example.internmanage.Services.EvaluateService;
+import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,7 +90,7 @@ public class EvaluateController {
     //新增老师对学生评价
     @RequestMapping("insertEvaT")
     @ResponseBody
-    public String insertEvaT(HttpServletRequest request){
+    public R insertEvaT(HttpServletRequest request){
         Evaluate evaluate = new Evaluate();
         evaluate.setStu_id(Integer.parseInt(request.getParameter("stu_id")));
         evaluate.setT_id(Integer.parseInt(request.getParameter("t_id")));
@@ -101,7 +102,7 @@ public class EvaluateController {
     //新增企业对学生评价
     @RequestMapping("insertEvaC")
     @ResponseBody
-    public String insertEvaC(HttpServletRequest request){
+    public R insertEvaC(HttpServletRequest request){
         Evaluate evaluate = new Evaluate();
         evaluate.setStu_id(Integer.parseInt(request.getParameter("stu_id")));
         evaluate.setCom_id(Integer.parseInt(request.getParameter("com_id")));
@@ -113,7 +114,7 @@ public class EvaluateController {
     //删除老师对学生评价
     @RequestMapping("deleteEvaT")
     @ResponseBody
-    public String deleteEvaT(HttpServletRequest request){
+    public R deleteEvaT(HttpServletRequest request){
         int eva_id  = Integer.parseInt(request.getParameter("eva_id"));
         return evaluateService.deleteEvaT(eva_id);
     }
@@ -121,7 +122,7 @@ public class EvaluateController {
     //删除企业对学生评价
     @RequestMapping("deleteEvaC")
     @ResponseBody
-    public String deleteEvaC(HttpServletRequest request){
+    public R deleteEvaC(HttpServletRequest request){
         int eva_id  = Integer.parseInt(request.getParameter("eva_id"));
         return evaluateService.deleteEvaC(eva_id);
     }
@@ -129,7 +130,7 @@ public class EvaluateController {
     //修改老师对学生评价
     @RequestMapping("updateEvaT")
     @ResponseBody
-    public String updateEvaT(HttpServletRequest request){
+    public R updateEvaT(HttpServletRequest request){
         String eva_date = request.getParameter("eva_date");
         String eva_content = request.getParameter("eva_content");
         int eva_id = Integer.parseInt(request.getParameter("eva_id"));
@@ -139,7 +140,7 @@ public class EvaluateController {
     //修改企业对学生评价
     @RequestMapping("updateEvaC")
     @ResponseBody
-    public String updateEvaC(HttpServletRequest request){
+    public R updateEvaC(HttpServletRequest request){
         String eva_date = request.getParameter("eva_date");
         String eva_content = request.getParameter("eva_content");
         int eva_id = Integer.parseInt(request.getParameter("eva_id"));
