@@ -41,7 +41,7 @@ public class CompanyService {
         return companyMapper.selectAll();
     }
 
-    public R delelte(int cpmy_id) {
+    public R delete(int cpmy_id) {
         if (companyMapper.delete(cpmy_id) != 0)
             return R.success();
 //            return "delSuccess";

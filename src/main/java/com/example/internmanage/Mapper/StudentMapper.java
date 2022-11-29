@@ -12,6 +12,9 @@ public interface StudentMapper {
     @Select("select password from student where stu_id = #{username}")
     String checkLogin(String username);
 
+    @Select("select * from student where stu_id = #{stu_id}")
+    Student selectStudent(String stu_id);
+
     @Insert("insert into student (stu_id,username,password) values (#{stu_id},#{username},#{password})")
     int register(Student student);
 
