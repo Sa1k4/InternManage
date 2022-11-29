@@ -3,14 +3,14 @@ package com.example.internmanage.Controller;
 import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("student")
 public class StudentController {
     @Autowired
@@ -42,7 +42,7 @@ public class StudentController {
         return studentService.selectAll();
     }
 
-    @RequestMapping("studentDelete")
+    @RequestMapping("delete")
     @ResponseBody
     public String studentDelete(@RequestBody Student student){
         return studentService.delelte(student.getStu_id());
