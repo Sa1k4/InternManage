@@ -1,61 +1,50 @@
 package com.example.internmanage.Controller;
 
-import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Entity.Teacher;
 import com.example.internmanage.Services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("teacher")
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-    @RequestMapping("teacherLogin")
+    @RequestMapping("login")
     @ResponseBody
-    public String teacherLogin(HttpServletRequest request){
-        String name = request.getParameter("username");
-        String password = request.getParameter("password");
+    public String teacherLogin(@RequestBody Teacher teacher){
+        String name = teacher.getUsername();
+        String password = teacher.getPassword();
         return teacherService.checkLogin(name,password);
     }
 
-    @RequestMapping("teacherRegister")
+    @RequestMapping("register")
     @ResponseBody
-    public String teacherRegister(HttpServletRequest request){
-        Teacher teacher = new Teacher();
-        teacher.setT_id(Integer.parseInt(request.getParameter("t_id")));
-        teacher.setUsername(request.getParameter("username"));
-        teacher.setPassword(request.getParameter("password"));
+    public String teacherRegister(@RequestBody Teacher teacher){
         return teacherService.register(teacher);
     }
 
-    @RequestMapping("teacherUpdate")
+    @RequestMapping("update")
     @ResponseBody
-    public String teacherUpdate(HttpServletRequest request){
-        Teacher teacher = new Teacher();
-        teacher.setT_id(Integer.parseInt(request.getParameter("t_id")));
-        teacher.setUsername(request.getParameter("username"));
-        teacher.setPassword(request.getParameter("password"));
-        teacher.setAcademy(request.getParameter("academy"));
-        teacher.setSex(request.getParameter("sex"));
-        teacher.setPhone(request.getParameter("phone"));
+    public String teacherUpdate(@RequestBody Teacher teacher){
         return teacherService.update(teacher);
     }
 
-    @RequestMapping("teacherSelect")
+    @RequestMapping("select")
     @ResponseBody
     public List<Teacher> teacherSelect(){
         return teacherService.selectAll();
     }
 
-    @RequestMapping("teacherDelete")
+    @RequestMapping("delete")
     @ResponseBody
-    public String teacherDelete(HttpServletRequest request){
-        return teacherService.delelte(Integer.parseInt(request.getParameter("t_id")));
+    public String teacherDelete(@RequestBody Teacher teacher){
+        return teacherService.delelte(teacher.getT_id());
     }
 }
