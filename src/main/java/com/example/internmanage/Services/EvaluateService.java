@@ -2,6 +2,7 @@ package com.example.internmanage.Services;
 
 import com.example.internmanage.Entity.Evaluate;
 import com.example.internmanage.Mapper.EvaluateMapper;
+import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,40 +47,40 @@ public class EvaluateService {
         return evaluateMapper.selectEvaCbyName(com_id,stu_name);
     }
 
-    public String insertEvaT(Evaluate evaluate){
+    public R insertEvaT(Evaluate evaluate){
         if(evaluateMapper.insertEvaT(evaluate)!=0)
-        return "insertSuccess";
-        else return "insertFailed";
+        return R.success();
+        else return R.failed();
     }
 
-    public String insertEvaC(Evaluate evaluate){
+    public R insertEvaC(Evaluate evaluate){
         if (evaluateMapper.insertEvaC(evaluate)!=0)
-        return "insertSuccess";
-        else return "insertFailed";
+        return R.success();
+        else return R.failed();
     }
 
-    public String deleteEvaT(int eva_id){
+    public R deleteEvaT(int eva_id){
         if (evaluateMapper.deleteEvaT(eva_id)!=0)
-        return "deleteSuccess";
-        else return "deleteFailed";
+        return R.success();
+        else return R.failed();
     }
 
-    public String deleteEvaC(int eva_id){
+    public R deleteEvaC(int eva_id){
         if (evaluateMapper.deleteEvaC(eva_id)!=0)
-        return "deleteSuccess";
-        else return "deleteFailed";
+        return R.success();
+        else return R.failed();
     }
 
-    public String updateEvaT(String eva_date,String eva_content,int eva_id){
+    public R updateEvaT(String eva_date,String eva_content,int eva_id){
         if (evaluateMapper.updateEvaT(eva_date,eva_content,eva_id)!=0)
-        return "updateSuccess";
-        else return "updateFailed";
+        return R.success();
+        else return R.failed();
     }
 
-    public String updateEvaC(String eva_date,String eva_content,int eva_id){
+    public R updateEvaC(String eva_date,String eva_content,int eva_id){
         if (evaluateMapper.updateEvaC(eva_date,eva_content,eva_id)!=0)
-        return "updateSuccess";
-        else return "updateFailed";
+        return R.success();
+        else return R.failed();
     }
 
 }
