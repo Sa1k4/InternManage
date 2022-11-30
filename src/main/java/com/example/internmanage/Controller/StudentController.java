@@ -42,7 +42,6 @@ public class StudentController {
     public List<Student> studentSelect(){
         return studentService.selectAll();
     }
-
     @RequestMapping("delete")
     @ResponseBody
     public R studentDelete(@RequestBody Student student){
