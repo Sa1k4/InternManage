@@ -15,7 +15,7 @@ public interface StudentMapper {
     @Select("select * from student where stu_id = #{stu_id}")
     Student selectStudent(String stu_id);
 
-    @Insert("insert into student (stu_id,username,password) values (#{stu_id},#{username},#{password})")
+    @Insert("insert into student (stu_id,username,password,specialty,classname,academy,sex,phone) values (#{stu_id},#{username},#{password},#{specialty},#{classname},#{academy},#{sex},#{phone})")
     int register(Student student);
 
     @Update("update student set username = #{username},password = #{password},specialty = #{specialty},classname = #{classname},academy = #{academy},sex = #{sex},phone = #{phone} where stu_id = #{stu_id}")

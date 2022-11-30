@@ -49,10 +49,10 @@ public class StudentController {
         return studentService.selectPage(pageNum, pageSize, username, classname, stu_id);
     }
 
-    @RequestMapping("delete")
+    @RequestMapping("delete{id}")
     @ResponseBody
-    public R studentDelete(@RequestBody Student student){
-        return studentService.delete(student.getStu_id());
+    public R studentDelete(@PathVariable Integer id){
+        return studentService.delete(id);
     }
 
     @PostMapping("/deleteMultiple")
