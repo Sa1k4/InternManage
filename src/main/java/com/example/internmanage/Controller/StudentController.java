@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("student")
@@ -42,7 +41,7 @@ public class StudentController {
     }
 
     @GetMapping("page")
-    public Map<String,Object> findPage(@RequestParam Integer pageNum,
+    public R findPage(@RequestParam Integer pageNum,
                                        @RequestParam Integer pageSize,
                                        @RequestParam String username,
                                        @RequestParam String classname,

@@ -17,7 +17,7 @@ public class StudentService {
 
     public R checkLogin(String username, String password) {
         if (password.equals(studentMapper.checkLogin(username)))
-            return R.success().data("userinfo",studentMapper.selectStudent(username));
+            return R.success().data("userinfo", studentMapper.selectStudent(username));
         else return R.failed();
     }
 
@@ -37,22 +37,25 @@ public class StudentService {
         return studentMapper.selectAll();
     }
 
-    public Map<String,Object> selectPage(Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
-        pageNum = (pageNum - 1)*pageSize;
-        Integer total = studentMapper.selectTotal(student_name,student_class,student_id);
-        List<Student> data = studentMapper.selectPage(pageNum,pageSize,student_name,student_class,student_id);
-        Map<String , Object> res = new HashMap<>();
-        res.put("data",data);
-        res.put("total",total);
-        return res;
+    public R selectPage(Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = studentMapper.selectTotal(student_name, student_class, student_id);
+        List<Student> result = studentMapper.selectPage(pageNum, pageSize, student_name, student_class, student_id);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", result);
+        res.put("total", total);
+        if (!result.isEmpty()) {
+            return R.success().data(res);
+        }
+        return R.success().data("return", "未查询到相应记录");
     }
 
-    public R deleteMultiple(List<Integer> ids){
+    public R deleteMultiple(List<Integer> ids) {
         int count = 0;
-        for (int i=0;i<ids.size();i++){
-            if(studentMapper.delete(ids.get(i))>0) count++;
+        for (int i = 0; i < ids.size(); i++) {
+            if (studentMapper.delete(ids.get(i)) > 0) count++;
         }
-        if (count==ids.size())
+        if (count == ids.size())
             return R.success();
         else return R.failed();
     }
