@@ -43,18 +43,12 @@ public class FileController {
         //将文件上传的url存入数据表中
         System.out.println("文件上传成功");
 
-//        File file1=new File(fileName,path,time);
-//        fileService.addFile(file1);//调用service方法 将文件信息插入数据库
-
         return fileName;
     }
 
     //文件的下载
     @GetMapping("/file/download")
     public String fileDownload(HttpServletResponse response, HttpServletRequest request) throws IOException {
-//        File file = fileService.queryFileById(fileId);
-//        // 获得待下载文件所在文件夹的绝对路径
-//        String realPath =file.getUrl();
         String url = request.getParameter("url");
         url=URL+url;
         //获得输入流

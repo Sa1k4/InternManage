@@ -2,7 +2,7 @@ package com.example.internmanage.Entity;
 
 public class Admin {
     private int adm_id;
-    private String name;
+    private String username;
     private String password;
 
     public int getAdm_id() {
@@ -13,12 +13,12 @@ public class Admin {
         this.adm_id = adm_id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
