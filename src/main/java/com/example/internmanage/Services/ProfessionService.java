@@ -54,10 +54,7 @@ public class ProfessionService {
         HashMap<String, Object> res = new HashMap<>();
         res.put("total", total);
         res.put("data", result);
-        if (!result.isEmpty()) {
-            return R.success().data(res);
-        }
-        return R.success().data("return", "未查询到相应记录");
+        return R.success().data(res);
     }
 
     public R addProfession(Profession profession) {
