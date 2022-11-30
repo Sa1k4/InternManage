@@ -19,6 +19,10 @@ public class ProfessionController {
         return professionService.selectAll();
     }
 
+    // TODO:查询删除
+
+    // TODO:彻底删除
+
     @RequestMapping("selectAllOfCom")
     public R professionSelectAllOfCom(@RequestBody Profession profession) {
         return professionService.selectAllOfCom(profession);
