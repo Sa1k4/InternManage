@@ -6,13 +6,15 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfessionService {
     @Autowired
     private ProfessionMapper professionMapper;
 
     public R selectAll() {
-        Profession result = professionMapper.selectAll();
+        List<Profession> result = professionMapper.selectAll();
         if (result != null) {
             return R.success().data("profession", result);
         }
@@ -20,7 +22,7 @@ public class ProfessionService {
     }
 
     public R selectAllDel() {
-        Profession result = professionMapper.selectAllDel();
+        List<Profession> result = professionMapper.selectAllDel();
         if (result != null) {
             return R.success().data("professionDel", result);
         }
@@ -35,7 +37,7 @@ public class ProfessionService {
     }
 
     public R selectAllOfCom(Profession profession) {
-        Profession result = professionMapper.selectAllOfCom(profession);
+        List<Profession> result = professionMapper.selectAllOfCom(profession);
         if (result != null) {
             return R.success().data("profession", result);
         }
@@ -43,7 +45,7 @@ public class ProfessionService {
     }
 
     public R conditionQuery(Profession profession) {
-        Profession result = professionMapper.conditionQuery(profession);
+        List<Profession> result = professionMapper.conditionQuery(profession);
         if (result != null) {
             return R.success().data("conditionQuery", result);
         }

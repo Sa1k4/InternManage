@@ -3,6 +3,8 @@ package com.example.internmanage.Mapper;
 import com.example.internmanage.Entity.Profession;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface ProfessionMapper {
     /**
@@ -12,7 +14,7 @@ public interface ProfessionMapper {
      * @return 所有岗位信息
      */
     @Select("select * from profession where del = 0")
-    Profession selectAll();
+    List<Profession> selectAll();
 
     /**
      * 查询所有企业被删除的岗位信息
@@ -21,7 +23,7 @@ public interface ProfessionMapper {
      * @return 所有被删除的岗位信息
      */
     @Select("select * from profession where del = 1")
-    Profession selectAllDel();
+    List<Profession> selectAllDel();
 
     /**
      * 通过岗位id删除岗位记录(彻底删除)
@@ -40,7 +42,7 @@ public interface ProfessionMapper {
      * @return 相应企业的岗位信息
      */
     @Select("select * from profession where com_id = #{com_id} and del = 0")
-    Profession selectAllOfCom(Profession profession);
+    List<Profession> selectAllOfCom(Profession profession);
 
     /**
      * 根据条件查询岗位信息
@@ -50,7 +52,7 @@ public interface ProfessionMapper {
      * @return 筛选后的岗位信息
      */
     @Select("select * from profession where name=#{name} or status=#{status} and com_id=#{com_id} and del = 0")
-    Profession conditionQuery(Profession profession);
+    List<Profession> conditionQuery(Profession profession);
 
     /**
      * 通过实体类新增岗位信息
