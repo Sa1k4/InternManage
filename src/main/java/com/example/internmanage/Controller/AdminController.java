@@ -18,7 +18,7 @@ public class AdminController {
     @RequestMapping("login")
     @ResponseBody
     public R adminLogin(@RequestBody Admin admin){
-        String name = admin.getName();
+        String name = admin.getUsername();
         String password = admin.getPassword();
         return adminService.checkLogin(name,password);
     }

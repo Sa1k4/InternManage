@@ -12,7 +12,7 @@ public class AdminService {
 
     public R checkLogin(String name,String password){
         if(password.equals(adminMapper.checkLogin(name)))
-            return R.success();
+            return R.success().data("userinfo",adminMapper.selectAdmin(name));
 //            return "loginSuccess";
         else return R.failed();
 //            return "loginFailed";

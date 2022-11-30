@@ -6,7 +6,9 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentService {
@@ -33,6 +35,26 @@ public class StudentService {
 
     public List<Student> selectAll() {
         return studentMapper.selectAll();
+    }
+
+    public Map<String,Object> selectPage(Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
+        pageNum = (pageNum - 1)*pageSize;
+        Integer total = studentMapper.selectTotal(student_name,student_class,student_id);
+        List<Student> data = studentMapper.selectPage(pageNum,pageSize,student_name,student_class,student_id);
+        Map<String , Object> res = new HashMap<>();
+        res.put("data",data);
+        res.put("total",total);
+        return res;
+    }
+
+    public R deleteMultiple(List<Integer> ids){
+        int count = 0;
+        for (int i=0;i<ids.size();i++){
+            if(studentMapper.delete(ids.get(i))>0) count++;
+        }
+        if (count==ids.size())
+            return R.success();
+        else return R.failed();
     }
 
     public R delete(int stu_id) {
