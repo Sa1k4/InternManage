@@ -1,5 +1,4 @@
 package com.example.internmanage.Entity;
-
 public class Profession {
     private Integer id;
     private String name;
@@ -8,6 +7,7 @@ public class Profession {
     private Integer apply_num;
     private Integer com_id;
     private Integer status;
+    private Integer del;
 
     public Integer getId() {
         return id;
@@ -63,5 +63,13 @@ public class Profession {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getDel() {
+        return del;
+    }
+
+    public void setDel(Integer del) {
+        this.del = del;
     }
 }

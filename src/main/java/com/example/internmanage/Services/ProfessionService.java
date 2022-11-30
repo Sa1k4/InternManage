@@ -6,6 +6,7 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -13,21 +14,13 @@ public class ProfessionService {
     @Autowired
     private ProfessionMapper professionMapper;
 
-    public R selectAll() {
-        List<Profession> result = professionMapper.selectAll();
-        if (result != null) {
-            return R.success().data("profession", result);
-        }
-        return R.success().data("return", "未查询到相应记录");
+    public R selectAllAndDel(Integer pageNum, Integer pageSize, Integer del) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectAllAndDelTotal(del);
+        List<Profession> result = professionMapper.selectAllAndDel(pageNum, pageSize, del);
+        return getR(total, result);
     }
 
-    public R selectAllDel() {
-        List<Profession> result = professionMapper.selectAllDel();
-        if (result != null) {
-            return R.success().data("professionDel", result);
-        }
-        return R.success().data("return", "未查询到相应记录");
-    }
 
     public R delCProfession(Profession profession) {
         if (professionMapper.delCProfession(profession) != 0) {
@@ -36,18 +29,33 @@ public class ProfessionService {
         return R.success().data("return", "删除失败");
     }
 
-    public R selectAllOfCom(Profession profession) {
-        List<Profession> result = professionMapper.selectAllOfCom(profession);
-        if (result != null) {
-            return R.success().data("profession", result);
-        }
-        return R.success().data("return", "未查询到相应记录");
+    public R selectAllOfCom(Integer pageNum, Integer pageSize, Integer com_id) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectAllOfComTotal(com_id);
+        List<Profession> result = professionMapper.selectAllOfCom(com_id, pageNum, pageSize);
+        return getR(total, result);
     }
 
-    public R conditionQuery(Profession profession) {
-        List<Profession> result = professionMapper.conditionQuery(profession);
-        if (result != null) {
-            return R.success().data("conditionQuery", result);
+    public R conditionQuery(Integer pageNum, Integer pageSize, Integer com_id, String name, Integer status) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.conditionQueryTotal(com_id, name, status);
+        List<Profession> result = professionMapper.conditionQuery(com_id, name, status, pageNum, pageSize);
+        return getR(total, result);
+    }
+
+    /**
+     * 复用
+     *
+     * @param total 记录数
+     * @param result 数据库返回结果
+     * @return 统一接口数据
+     */
+    private R getR(Integer total, List<Profession> result) {
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        if (!result.isEmpty()) {
+            return R.success().data(res);
         }
         return R.success().data("return", "未查询到相应记录");
     }

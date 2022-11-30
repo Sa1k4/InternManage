@@ -8,22 +8,26 @@ import java.util.List;
 @Mapper
 public interface ProfessionMapper {
     /**
-     * 查询所有企业的岗位信息
+     * 查询所有企业的岗位信息 或 查询所有企业被删除的岗位信息
      * 角色：管理员
      *
-     * @return 所有岗位信息
+     * @param pageNum 当前页
+     * @param pageSize 页大小
+     * @param del 删除与否的状态
+     * @return 所有企业的岗位信息 或 所有企业被删除的岗位信息
      */
-    @Select("select * from profession where del = 0")
-    List<Profession> selectAll();
+    @Select("select * from profession where del = #{del} limit #{pageNum},#{pageSize}")
+    List<Profession> selectAllAndDel(Integer pageNum, Integer pageSize,Integer del);
 
     /**
-     * 查询所有企业被删除的岗位信息
+     * 查询所有企业的岗位信息记录数 或 查询所有企业被删除的岗位信息记录数
      * 角色：管理员
      *
-     * @return 所有被删除的岗位信息
+     * @param del 删除与否的状态
+     * @return 记录总条数
      */
-    @Select("select * from profession where del = 1")
-    List<Profession> selectAllDel();
+    @Select("select count(*) from profession where del = #{del}")
+    Integer selectAllAndDelTotal(Integer del);
 
     /**
      * 通过岗位id删除岗位记录(彻底删除)
@@ -39,20 +43,49 @@ public interface ProfessionMapper {
      * 查询相应企业的岗位信息
      * 角色：企业
      *
-     * @return 相应企业的岗位信息
+     * @param com_id   企业id
+     * @param pageNum  当前页
+     * @param pageSize 页大小
+     * @return 岗位信息
      */
-    @Select("select * from profession where com_id = #{com_id} and del = 0")
-    List<Profession> selectAllOfCom(Profession profession);
+    @Select("select * from profession where com_id = #{com_id} and del = 0 limit #{pageNum},#{pageSize}")
+    List<Profession> selectAllOfCom(Integer com_id, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查询相应企业岗位信息的总记录条数
+     * 角色：企业
+     *
+     * @param com_id 企业id
+     * @return 记录总条数
+     */
+    @Select("select count(*) from profession where com_id = #{com_id} and del = 0")
+    Integer selectAllOfComTotal(Integer com_id);
 
     /**
      * 根据条件查询岗位信息
      * 角色：企业
      *
-     * @param profession 岗位信息实体类
-     * @return 筛选后的岗位信息
+     * @param com_id   企业id
+     * @param name     岗位名称
+     * @param status   状态
+     * @param pageNum  当前页
+     * @param pageSize 页大小
+     * @return 岗位信息
      */
-    @Select("select * from profession where name=#{name} or status=#{status} and com_id=#{com_id} and del = 0")
-    List<Profession> conditionQuery(Profession profession);
+    @Select("select * from profession where name like concat('%',#{name},'%') and status= #{status} and com_id=#{com_id} and del = 0 limit #{pageNum},#{pageSize}")
+    List<Profession> conditionQuery(Integer com_id, String name, Integer status, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据条件查询岗位信息的总记录条数
+     * 角色：企业
+     *
+     * @param com_id 企业id
+     * @param name   岗位名称
+     * @param status 状态
+     * @return 记录总条数
+     */
+    @Select("select count(*) from profession where name like concat('%',#{name},'%') and status= #{status} and com_id=#{com_id} and del = 0")
+    Integer conditionQueryTotal(Integer com_id, String name, Integer status);
 
     /**
      * 通过实体类新增岗位信息

@@ -34,6 +34,7 @@ public class TeacherService {
     public List<Teacher> selectAll(){
         return teacherMapper.selectAll();
     }
+    // TODO: 分页
 
     public R delete(int t_id){
         if(teacherMapper.delete(t_id)!=0)
