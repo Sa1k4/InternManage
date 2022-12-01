@@ -15,43 +15,43 @@ public class StudentController {
     private StudentService studentService;
 
     @RequestMapping("login")
-    public R studentLogin(@RequestBody Student student){
+    public R studentLogin(@RequestBody Student student) {
         String name = student.getUsername();
         String password = student.getPassword();
-        return studentService.checkLogin(name,password);
+        return studentService.checkLogin(name, password);
     }
 
     @RequestMapping("register")
-    public R studentRegister(@RequestBody Student student){
+    public R studentRegister(@RequestBody Student student) {
         return studentService.register(student);
     }
 
     @RequestMapping("update")
-    public R studentUpdate(@RequestBody Student student){
+    public R studentUpdate(@RequestBody Student student) {
         return studentService.update(student);
     }
 
     @RequestMapping("select")
-    public List<Student> studentSelect(){
+    public List<Student> studentSelect() {
         return studentService.selectAll();
     }
 
     @GetMapping("page")
     public R findPage(@RequestParam Integer pageNum,
-                                       @RequestParam Integer pageSize,
-                                       @RequestParam String username,
-                                       @RequestParam String classname,
-                                       @RequestParam String stu_id){
+                      @RequestParam Integer pageSize,
+                      @RequestParam String username,
+                      @RequestParam String classname,
+                      @RequestParam String stu_id) {
         return studentService.selectPage(pageNum, pageSize, username, classname, stu_id);
     }
 
     @RequestMapping("delete{id}")
-    public R studentDelete(@PathVariable Integer id){
+    public R studentDelete(@PathVariable Integer id) {
         return studentService.delete(id);
     }
 
     @PostMapping("/deleteMultiple")
-    public R deleteStudent(@RequestBody List<Integer> ids){
+    public R deleteStudent(@RequestBody List<Integer> ids) {
         return studentService.deleteMultiple(ids);
     }
 }
