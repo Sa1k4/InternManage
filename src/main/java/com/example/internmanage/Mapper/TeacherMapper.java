@@ -10,7 +10,7 @@ public interface TeacherMapper {
     @Select("select password from teacher where t_id = #{username}")
     String checkLogin(String username);
 
-    @Insert("insert into teacher (t_id,username,password) values (#{t_id},#{username},#{password})")
+    @Insert("insert into teacher (t_id,username,password,sex,phone,academy) values (#{t_id},#{username},#{password},#{sex},#{phone},#{academy})")
     int register(Teacher teacher);
 
     @Update("update teacher set username = #{username},password = #{password},sex = #{sex},phone = #{phone},academy = #{academy} where t_id = #{t_id}")
