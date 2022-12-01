@@ -6,6 +6,8 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("profession")
 public class ProfessionController {
@@ -19,8 +21,13 @@ public class ProfessionController {
     }
 
     @RequestMapping("delCProfession")
-    public R professionDelCProfession(@RequestBody Profession profession) {
-        return professionService.delCProfession(profession);
+    public R professionDelCProfession(@RequestBody int id) {
+        return professionService.delCProfession(id);
+    }
+
+    @PostMapping("/deleteCMultiple")
+    public R deleteCProfession(@RequestBody List<Integer> ids){
+        return professionService.deleteCMultiple(ids);
     }
 
     @GetMapping("selectAllOfCom")
@@ -42,8 +49,13 @@ public class ProfessionController {
     }
 
     @RequestMapping("delProfession")
-    public R professionDelProfession(@RequestBody Profession profession) {
-        return professionService.delProfession(profession);
+    public R professionDelProfession(@RequestBody int id) {
+        return professionService.delProfession(id);
+    }
+
+    @PostMapping("/deleteMultiple")
+    public R deleteProfession(@RequestBody List<Integer> ids){
+        return professionService.deleteMultiple(ids);
     }
 
     @RequestMapping("updateProfession")

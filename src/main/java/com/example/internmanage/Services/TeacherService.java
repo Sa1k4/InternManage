@@ -47,4 +47,14 @@ public class TeacherService {
             return R.success();
         else return R.failed();
     }
+
+    public R deleteMultiple(List<Integer> ids) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (teacherMapper.delete(ids.get(i)) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
+    }
 }
