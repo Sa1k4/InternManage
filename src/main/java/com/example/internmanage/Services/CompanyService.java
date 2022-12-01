@@ -6,6 +6,7 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -37,8 +38,14 @@ public class CompanyService {
 //        else return "updateFailed";
     }
 
-    public List<Company> selectAll() {
-        return companyMapper.selectAll();
+    public R selectAll(Integer pageNum,Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = companyMapper.selectAllTotal();
+        List<Company> result = companyMapper.selectAll(pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
     }
 
     public R delete(int cpmy_id) {

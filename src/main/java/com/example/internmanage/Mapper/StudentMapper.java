@@ -2,12 +2,10 @@ package com.example.internmanage.Mapper;
 
 import com.example.internmanage.Entity.Student;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Mapper
-@ResponseBody
 public interface StudentMapper {
     @Select("select password from student where stu_id = #{username}")
     String checkLogin(String username);
