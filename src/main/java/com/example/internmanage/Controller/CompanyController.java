@@ -6,6 +6,8 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("company")
 public class CompanyController {
@@ -30,13 +32,18 @@ public class CompanyController {
     }
 
     @GetMapping("select")
-    public R companySelect(Integer pageNum, Integer pageSize) {
-        return companyService.selectAll(pageNum, pageSize);
+    public R companySelect(String company_name, Integer pageNum, Integer pageSize) {
+        return companyService.selectAll(company_name, pageNum, pageSize);
     }
 
     @RequestMapping("delete")
     public R companyDelete(@RequestBody Company company) {
         return companyService.delete(company.getCpmy_id());
+    }
+
+    @PostMapping("/deleteMultiple")
+    public R deleteCompany(@RequestBody List<Integer> ids) {
+        return companyService.deleteMultiple(ids);
     }
 
 }

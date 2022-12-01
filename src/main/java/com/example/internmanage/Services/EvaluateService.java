@@ -13,38 +13,46 @@ public class EvaluateService {
     @Autowired
     private EvaluateMapper evaluateMapper;
 
-    public List<Evaluate> studentSelectEvaT(int stu_id){
-        return evaluateMapper.studentSelectEvaT(stu_id);
+    public R studentSelectEvaT(int stu_id){
+        List<Evaluate> result = evaluateMapper.studentSelectEvaT(stu_id);
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> studentSelectEvaC(int stu_id){
-        return evaluateMapper.studentSelectEvaC(stu_id);
+    public R studentSelectEvaC(int stu_id){
+        List<Evaluate> result = evaluateMapper.studentSelectEvaC(stu_id);
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> adminSelectEvaT(){
-        return evaluateMapper.adminSelectEvaT();
+    public R adminSelectEvaT(){
+        List<Evaluate> result = evaluateMapper.adminSelectEvaT();
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> adminSelectEvaC(){
-        return evaluateMapper.adminSelectEvaC();
+    public R adminSelectEvaC(){
+        List<Evaluate> result = evaluateMapper.adminSelectEvaC();
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> selectEvaTbyId(Evaluate evaluate){
-        return evaluateMapper.selectEvaTbyId(evaluate);
+    public R selectEvaTbyId(Evaluate evaluate){
+        List<Evaluate> result = evaluateMapper.selectEvaTbyId(evaluate);
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> selectEvaTbyName(int t_id,String stu_name){
+    public R selectEvaTbyName(int t_id,String stu_name){
         stu_name = '%'+stu_name+'%';
-        return evaluateMapper.selectEvaTbyName(t_id,stu_name);
+        List<Evaluate> result = evaluateMapper.selectEvaTbyName(t_id, stu_name);
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> selectEvaCbyId(int com_id,int stu_id){
-        return evaluateMapper.selectEvaCbyId(com_id,stu_id);
+    public R selectEvaCbyId(int com_id,int stu_id){
+        List<Evaluate> result = evaluateMapper.selectEvaCbyId(com_id, stu_id);
+        return R.success().data("data", result);
     }
 
-    public List<Evaluate> selectEvaCbyName(int com_id,String stu_name){
+    public R selectEvaCbyName(int com_id,String stu_name){
         stu_name = '%'+stu_name+'%';
-        return evaluateMapper.selectEvaCbyName(com_id,stu_name);
+        List<Evaluate> result = evaluateMapper.selectEvaCbyName(com_id, stu_name);
+        return R.success().data("data", result);
     }
 
     public R insertEvaT(Evaluate evaluate){
@@ -65,9 +73,29 @@ public class EvaluateService {
         else return R.failed();
     }
 
+    public R deleteEvaTMultiple(List<Integer> ids) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (evaluateMapper.deleteEvaT(ids.get(i)) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
+    }
+
     public R deleteEvaC(int eva_id){
         if (evaluateMapper.deleteEvaC(eva_id)!=0)
         return R.success();
+        else return R.failed();
+    }
+
+    public R deleteEvaCMultiple(List<Integer> ids) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (evaluateMapper.deleteEvaC(ids.get(i)) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
         else return R.failed();
     }
 
