@@ -15,7 +15,6 @@ public class StudentController {
     private StudentService studentService;
 
     @RequestMapping("login")
-    @ResponseBody
     public R studentLogin(@RequestBody Student student){
         String name = student.getUsername();
         String password = student.getPassword();
@@ -23,19 +22,16 @@ public class StudentController {
     }
 
     @RequestMapping("register")
-    @ResponseBody
     public R studentRegister(@RequestBody Student student){
         return studentService.register(student);
     }
 
     @RequestMapping("update")
-    @ResponseBody
     public R studentUpdate(@RequestBody Student student){
         return studentService.update(student);
     }
 
     @RequestMapping("select")
-    @ResponseBody
     public List<Student> studentSelect(){
         return studentService.selectAll();
     }
@@ -50,7 +46,6 @@ public class StudentController {
     }
 
     @RequestMapping("delete{id}")
-    @ResponseBody
     public R studentDelete(@PathVariable Integer id){
         return studentService.delete(id);
     }

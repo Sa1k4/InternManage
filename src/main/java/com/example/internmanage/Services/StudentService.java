@@ -44,10 +44,7 @@ public class StudentService {
         Map<String, Object> res = new HashMap<>();
         res.put("data", result);
         res.put("total", total);
-        if (!result.isEmpty()) {
-            return R.success().data(res);
-        }
-        return R.success().data("return", "未查询到相应记录");
+        return R.success().data(res);
     }
 
     public R deleteMultiple(List<Integer> ids) {

@@ -23,10 +23,15 @@ public class ProfessionService {
 
 
     public R delCProfession(Profession profession) {
+        HashMap<String, Object> ret = new HashMap<>();
         if (professionMapper.delCProfession(profession) != 0) {
-            return R.success().data("return", "删除成功");
+            ret.put("status", true);
+            ret.put("msg", "删除成功");
+            return R.success().data(ret);
         }
-        return R.success().data("return", "删除失败");
+        ret.put("status", false);
+        ret.put("msg", "删除失败");
+        return R.success().data(ret);
     }
 
     public R selectAllOfCom(Integer pageNum, Integer pageSize, Integer com_id) {
@@ -46,7 +51,7 @@ public class ProfessionService {
     /**
      * 复用
      *
-     * @param total 记录数
+     * @param total  记录数
      * @param result 数据库返回结果
      * @return 统一接口数据
      */
@@ -54,37 +59,54 @@ public class ProfessionService {
         HashMap<String, Object> res = new HashMap<>();
         res.put("total", total);
         res.put("data", result);
-        if (!result.isEmpty()) {
-            return R.success().data(res);
-        }
-        return R.success().data("return", "未查询到相应记录");
+        return R.success().data(res);
     }
 
     public R addProfession(Profession profession) {
+        HashMap<String, Object> ret = new HashMap<>();
         if (professionMapper.addProfession(profession) != 0) {
-            return R.success().data("return", "新增成功");
+            ret.put("status", true);
+            ret.put("msg", "新增成功");
+            return R.success().data(ret);
         }
-        return R.failed().data("return", "新增失败");
+        ret.put("status", false);
+        ret.put("msg", "新增失败");
+        return R.failed().data(ret);
     }
 
     public R delProfession(Profession profession) {
+        HashMap<String, Object> ret = new HashMap<>();
         if (professionMapper.delProfession(profession) != 0) {
-            return R.success().data("return", "删除成功");
+            ret.put("status", true);
+            ret.put("msg", "删除成功");
+            return R.success().data(ret);
         }
-        return R.failed().data("return", "删除失败");
+        ret.put("status", false);
+        ret.put("msg", "删除失败");
+        return R.failed().data(ret);
     }
 
     public R updateProfession(Profession profession) {
+        HashMap<String, Object> ret = new HashMap<>();
         if (professionMapper.updateProfession(profession) != 0) {
-            return R.success().data("return", "更新成功");
+            ret.put("status", true);
+            ret.put("msg", "更新成功");
+            return R.success().data(ret);
         }
-        return R.failed().data("return", "更新失败");
+        ret.put("status", false);
+        ret.put("msg", "更新失败");
+        return R.failed().data(ret);
     }
 
     public R openOrCloseProfession(Profession profession) {
+        HashMap<String, Object> ret = new HashMap<>();
         if (professionMapper.openOrCloseProfession(profession) != 0) {
-            return R.success().data("return", "切换成功");
+            ret.put("status", true);
+            ret.put("msg", "切换成功");
+            return R.success().data(ret);
         }
-        return R.failed().data("return", "切换失败");
+        ret.put("status", false);
+        ret.put("msg", "切换失败");
+        return R.failed().data(ret);
     }
 }
