@@ -36,9 +36,9 @@ public class TeacherController {
         return teacherService.selectAll(username, academy, pageNum, pageSize);
     }
 
-    @RequestMapping("delete")
-    public R teacherDelete(@RequestBody Teacher teacher) {
-        return teacherService.delete(teacher.getT_id());
+    @RequestMapping("delete{id}")
+    public R teacherDelete(@PathVariable Integer id) {
+        return teacherService.delete(id);
     }
 
     @PostMapping("/deleteMultiple")
