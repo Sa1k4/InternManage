@@ -20,8 +20,8 @@ public class ProfessionController {
         return professionService.selectAllAndDel(pageNum, pageSize, del);
     }
 
-    @RequestMapping("delCProfession")
-    public R professionDelCProfession(@RequestBody int id) {
+    @RequestMapping("delCProfession{id}")
+    public R professionDelCProfession(@PathVariable int id) {
         return professionService.delCProfession(id);
     }
 
@@ -48,8 +48,8 @@ public class ProfessionController {
         return professionService.addProfession(profession);
     }
 
-    @RequestMapping("delProfession")
-    public R professionDelProfession(@RequestBody int id) {
+    @RequestMapping("delProfession{id}")
+    public R professionDelProfession(@PathVariable int id) {
         return professionService.delProfession(id);
     }
 

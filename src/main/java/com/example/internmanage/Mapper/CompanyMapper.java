@@ -16,11 +16,11 @@ public interface CompanyMapper {
     @Update("update company set company_name = #{company_name},company_legal = #{company_legal},company_licence = #{company_licence},username = #{username},password = #{password} where cpmy_id = #{cpmy_id}")
     int update(Company company);
 
-    @Select("select * from company limit #{pageNum},#{pageSize}")
-    List<Company> selectAll(Integer pageNum, Integer pageSize);
+    @Select("select * from company where company_name like concat('%',#{company_name},'%') limit #{pageNum},#{pageSize}")
+    List<Company> selectAll(String company_name,Integer pageNum, Integer pageSize);
 
-    @Select("select count(*) from company")
-    Integer selectAllTotal();
+    @Select("select count(*) from company where company_name like concat('%',#{company_name},'%')")
+    Integer selectAllTotal(String company_name);
 
     @Delete("delete from company where cpmy_id = #{cpmy_id}")
     int delete(int cpmy_id);

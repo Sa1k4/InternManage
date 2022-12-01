@@ -38,10 +38,10 @@ public class CompanyService {
 //        else return "updateFailed";
     }
 
-    public R selectAll(Integer pageNum,Integer pageSize) {
+    public R selectAll(String company_name,Integer pageNum,Integer pageSize) {
         pageNum = (pageNum - 1) * pageSize;
-        Integer total = companyMapper.selectAllTotal();
-        List<Company> result = companyMapper.selectAll(pageNum, pageSize);
+        Integer total = companyMapper.selectAllTotal(company_name);
+        List<Company> result = companyMapper.selectAll(company_name,pageNum, pageSize);
         HashMap<String, Object> res = new HashMap<>();
         res.put("total", total);
         res.put("data", result);
@@ -54,6 +54,16 @@ public class CompanyService {
 //            return "delSuccess";
         else return R.failed();
 //        else return "delFailed";
+    }
+
+    public R deleteMultiple(List<Integer> ids) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (companyMapper.delete(ids.get(i)) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
     }
 
 }

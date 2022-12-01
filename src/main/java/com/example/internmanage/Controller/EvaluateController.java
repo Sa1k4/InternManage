@@ -4,9 +4,7 @@ import com.example.internmanage.Entity.Evaluate;
 import com.example.internmanage.Services.EvaluateService;
 import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -19,99 +17,86 @@ public class EvaluateController {
 
     //学生查看老师给自己的评价
     @RequestMapping("studentSelectEvaT")
-    public List<Evaluate> studentSelectEvaT(@RequestBody Evaluate evaluate){
+    public R studentSelectEvaT(@RequestBody Evaluate evaluate){
         int stu_id = evaluate.getStu_id();
         return evaluateService.studentSelectEvaT(stu_id);
     }
 
     //学生看企业给自己评价
     @RequestMapping("studentSelectEvaC")
-    public List<Evaluate> studentSelectEvaC(@RequestBody Evaluate evaluate){
+    public R studentSelectEvaC(@RequestBody Evaluate evaluate){
         int stu_id = evaluate.getStu_id();
         return evaluateService.studentSelectEvaC(stu_id);
     }
 
     //管理员看所有老师给学生的评价
     @RequestMapping("adminSelectEvaT")
-    public List<Evaluate> adminSelectEvaT(){
+    public R adminSelectEvaT(){
         return evaluateService.adminSelectEvaT();
     }
 
     //管理员看所有企业给学生的评价
     @RequestMapping("adminSelectEvaC")
-    public List<Evaluate> adminSelectEvaC(){
+    public R adminSelectEvaC(){
         return evaluateService.adminSelectEvaC();
     }
 
     //老师根据学生ID(ID是学号)搜索自己给学生评价
     @RequestMapping("teacherEvaluateID")
-    public List<Evaluate> teacherEvaluateID(HttpServletRequest request){
-        int t_id = Integer.parseInt(request.getParameter("t_id"));
-        int stu_id = Integer.parseInt(request.getParameter("stu_id"));
-        Evaluate evaluate = new Evaluate();
-        evaluate.setT_id(t_id);
-        evaluate.setStu_id(stu_id);
+    public R teacherEvaluateID(@RequestBody Evaluate evaluate){
         return evaluateService.selectEvaTbyId(evaluate);
     }
 
     //老师根据学生姓名模糊搜索评价（姓名无输入即为全部）
-    @RequestMapping("teacherEvaluateNAME")
-    public List<Evaluate> teacherEvaluateNAME(HttpServletRequest request){
-        int t_id = Integer.parseInt(request.getParameter("t_id"));
-        String stu_name = request.getParameter("stu_name");
+    @GetMapping("teacherEvaluateNAME")
+    public R teacherEvaluateNAME(@RequestParam int t_id,@RequestParam String stu_name){
         return evaluateService.selectEvaTbyName(t_id,stu_name);
     }
 
     //企业根据ID。。。同上
-    @RequestMapping("companyEvaluateID")
-    public List<Evaluate> companyEvaluateID(HttpServletRequest request){
-        int com_id = Integer.parseInt(request.getParameter("com_id"));
-        int stu_id = Integer.parseInt(request.getParameter("stu_id"));
+    @GetMapping("companyEvaluateID")
+    public R companyEvaluateID(@RequestParam int com_id,@RequestParam int stu_id){
         return evaluateService.selectEvaCbyId(com_id,stu_id);
     }
 
     //企业根据姓名。。。同上
-    @RequestMapping("companyEvaluateNAME")
-    public List<Evaluate> companyEvaluateNAME(HttpServletRequest request){
-        int com_id = Integer.parseInt(request.getParameter("com_id"));
-        String stu_name = request.getParameter("stu_name");
+    @GetMapping("companyEvaluateNAME")
+    public R companyEvaluateNAME(@RequestParam int com_id,@RequestParam String stu_name){
         return evaluateService.selectEvaCbyName(com_id,stu_name);
     }
 
     //新增老师对学生评价
     @RequestMapping("insertEvaT")
-    public R insertEvaT(HttpServletRequest request){
-        Evaluate evaluate = new Evaluate();
-        evaluate.setStu_id(Integer.parseInt(request.getParameter("stu_id")));
-        evaluate.setT_id(Integer.parseInt(request.getParameter("t_id")));
-        evaluate.setEva_content(request.getParameter("eva_content"));
-        evaluate.setEva_date(request.getParameter("eva_date"));
+    public R insertEvaT(@RequestBody Evaluate evaluate){
         return evaluateService.insertEvaT(evaluate);
     }
 
     //新增企业对学生评价
     @RequestMapping("insertEvaC")
-    public R insertEvaC(HttpServletRequest request){
-        Evaluate evaluate = new Evaluate();
-        evaluate.setStu_id(Integer.parseInt(request.getParameter("stu_id")));
-        evaluate.setCom_id(Integer.parseInt(request.getParameter("com_id")));
-        evaluate.setEva_content(request.getParameter("eva_content"));
-        evaluate.setEva_date(request.getParameter("eva_date"));
+    public R insertEvaC(@RequestBody Evaluate evaluate){
         return evaluateService.insertEvaC(evaluate);
     }
 
     //删除老师对学生评价
-    @RequestMapping("deleteEvaT")
-    public R deleteEvaT(HttpServletRequest request){
-        int eva_id  = Integer.parseInt(request.getParameter("eva_id"));
-        return evaluateService.deleteEvaT(eva_id);
+    @RequestMapping("deleteEvaT{id}")
+    public R deleteEvaT(@PathVariable int id){
+        return evaluateService.deleteEvaT(id);
+    }
+
+    @PostMapping("/deleteEvaTMultiple")
+    public R deleteEvaT(@RequestBody List<Integer> ids){
+        return evaluateService.deleteEvaTMultiple(ids);
     }
 
     //删除企业对学生评价
-    @RequestMapping("deleteEvaC")
-    public R deleteEvaC(HttpServletRequest request){
-        int eva_id  = Integer.parseInt(request.getParameter("eva_id"));
-        return evaluateService.deleteEvaC(eva_id);
+    @RequestMapping("deleteEvaC{id}")
+    public R deleteEvaC(@PathVariable int id){
+        return evaluateService.deleteEvaC(id);
+    }
+
+    @PostMapping("/deleteEvaCMultiple")
+    public R deleteEvaC(@RequestBody List<Integer> ids){
+        return evaluateService.deleteEvaCMultiple(ids);
     }
 
     //修改老师对学生评价
