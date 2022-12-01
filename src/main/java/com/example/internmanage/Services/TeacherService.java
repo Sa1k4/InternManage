@@ -32,10 +32,10 @@ public class TeacherService {
         else return R.failed();
     }
 
-    public R selectAll(Integer pageNum, Integer pageSize) {
+    public R selectAll(String username, String academy, Integer pageNum, Integer pageSize) {
         pageNum = (pageNum - 1) * pageSize;
-        Integer total = teacherMapper.selectAllTotal();
-        List<Teacher> result = teacherMapper.selectAll(pageNum, pageSize);
+        Integer total = teacherMapper.selectAllTotal(username, academy);
+        List<Teacher> result = teacherMapper.selectAll(username, academy, pageNum, pageSize);
         HashMap<String, Object> res = new HashMap<>();
         res.put("total", total);
         res.put("data", result);

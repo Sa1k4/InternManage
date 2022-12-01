@@ -30,8 +30,8 @@ public class TeacherController {
     }
 
     @GetMapping("select")
-    public R teacherSelect(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return teacherService.selectAll(pageNum, pageSize);
+    public R teacherSelect(@RequestParam String username, @RequestParam String academy, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return teacherService.selectAll(username, academy, pageNum, pageSize);
     }
 
     @RequestMapping("delete")
