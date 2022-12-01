@@ -11,8 +11,13 @@ import java.util.List;
 @RestController
 @RequestMapping("student")
 public class StudentController {
-    @Autowired
+
     private StudentService studentService;
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
 
     @RequestMapping("login")
     public R studentLogin(@RequestBody Student student) {

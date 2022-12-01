@@ -15,7 +15,7 @@ import java.util.Date;
 //上传不要用@Controller,用@RestController
 @RestController
 public class FileController {
-    private final String URL = "C:/uploadFiles/";
+    private static final String URL = "C:/uploadFiles/";
     //文件上传
     @PostMapping("/file/upload")
     public String file(MultipartFile file) throws IOException {

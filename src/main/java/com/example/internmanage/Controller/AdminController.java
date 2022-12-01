@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("admin")
 public class AdminController {
-    @Autowired
+
     private AdminService adminService;
+    @Autowired
+    public void setAdminService(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @RequestMapping("login")
     public R adminLogin(@RequestBody Admin admin){

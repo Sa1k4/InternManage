@@ -10,7 +10,15 @@ public class Evaluate {
     private String com_name;
     private String eva_date;
     private String eva_content;
+    private int status;
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getEva_id() {
         return eva_id;

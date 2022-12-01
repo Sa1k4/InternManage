@@ -9,8 +9,15 @@ public class Student {
     private String academy;
     private String sex;
     private String phone;
+    private int status;
 
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getStu_id() {
         return stu_id;

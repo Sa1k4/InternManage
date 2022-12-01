@@ -12,8 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("evaluate")
 public class EvaluateController {
-    @Autowired
+
     private EvaluateService evaluateService;
+    @Autowired
+    public void setEvaluateService(EvaluateService evaluateService) {
+        this.evaluateService = evaluateService;
+    }
 
     //学生查看老师给自己的评价
     @RequestMapping("studentSelectEvaT")

@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("company")
 public class CompanyController {
-    @Autowired
+
     private CompanyService companyService;
+    @Autowired
+    public void setCompanyService(CompanyService companyService) {
+        this.companyService = companyService;
+    }
 
     @RequestMapping("login")
     public R companyLogin(@RequestBody Company company) {

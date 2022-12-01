@@ -11,8 +11,11 @@ import java.util.List;
 @RestController
 @RequestMapping("profession")
 public class ProfessionController {
-    @Autowired
     private ProfessionService professionService;
+    @Autowired
+    public void setProfessionService(ProfessionService professionService) {
+        this.professionService = professionService;
+    }
 
     @GetMapping("selectAllAndDel")
     public R professionSelectAll(@RequestParam Integer pageNum,@RequestParam Integer pageSize,
