@@ -7,6 +7,15 @@ public class Company {
     private String company_licence;
     private String username;
     private String password;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getCpmy_id() {
         return cpmy_id;

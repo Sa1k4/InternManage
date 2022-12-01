@@ -7,6 +7,15 @@ public class Teacher {
     private String sex;
     private String phone;
     private String academy;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getT_id() {
         return t_id;
