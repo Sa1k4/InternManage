@@ -2,20 +2,18 @@ package com.example.internmanage.Mapper;
 
 import com.example.internmanage.Entity.Evaluate;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Mapper
-@ResponseBody
 public interface EvaluateMapper {
-    @Select("select e.*,t.name as t_name from evaluate_t e left join teacther t on t.t_id = e.t_id where e.stu_id = #{stu_id}")
+    @Select("select e.*,t.username as t_name from evaluate_t e left join teacher t on t.t_id = e.t_id where e.stu_id = #{stu_id}")
     List<Evaluate> studentSelectEvaT(int stu_id);
 
     @Select("select e.*,c.company_name as com_name from evaluate_c e left join company c on c.cpmy_id = e.com_id where e.stu_id = #{stu_id}")
     List<Evaluate> studentSelectEvaC(int stu_id);
 
-    @Select("select e.*,t.name as t_name from evaluate_t e left join teacther t on t.t_id = e.t_id")
+    @Select("select e.*,t.username as t_name from evaluate_t e left join teacher t on t.t_id = e.t_id")
     List<Evaluate> adminSelectEvaT();
 
     @Select("select e.*,c.company_name as com_name from evaluate_c e left join company c on c.cpmy_id = e.com_id")

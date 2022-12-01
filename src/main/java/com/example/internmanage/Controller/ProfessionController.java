@@ -18,7 +18,10 @@ public class ProfessionController {
         return professionService.selectAllAndDel(pageNum, pageSize, del);
     }
 
-    // TODO:彻底删除
+    @RequestMapping("delCProfession")
+    public R professionDelCProfession(@RequestBody Profession profession) {
+        return professionService.delCProfession(profession);
+    }
 
     @GetMapping("selectAllOfCom")
     public R professionSelectAllOfCom(@RequestParam Integer pageNum, @RequestParam Integer pageSize,

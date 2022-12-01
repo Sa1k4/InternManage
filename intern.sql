@@ -202,7 +202,7 @@ INSERT INTO `student` VALUES (209350322, '陈一', '123456', '计算机科学与
 -- ----------------------------
 -- Table structure for teacther
 -- ----------------------------
-DROP TABLE IF EXISTS `teacther`;
+DROP TABLE IF EXISTS teacher;
 CREATE TABLE `teacther`  (
   `t_id` int(11) NOT NULL,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -216,6 +216,6 @@ CREATE TABLE `teacther`  (
 -- ----------------------------
 -- Records of teacther
 -- ----------------------------
-INSERT INTO `teacther` VALUES (10001, '李老师', '123456', '男', '17345561794', '计算机');
+INSERT INTO teacher VALUES (10001, '李老师', '123456', '男', '17345561794', '计算机');
 
 SET FOREIGN_KEY_CHECKS = 1;
