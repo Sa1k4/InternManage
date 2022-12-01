@@ -16,11 +16,11 @@ public interface TeacherMapper {
     @Update("update teacher set username = #{username},password = #{password},sex = #{sex},phone = #{phone},academy = #{academy} where t_id = #{t_id}")
     int update(Teacher teacher);
 
-    @Select("select * from teacher limit #{pageNum},#{pageSize}")
-    List<Teacher> selectAll(Integer pageNum, Integer pageSize);
+    @Select("select * from teacher where username like concat('%',#{username},'%') and academy like concat('%',#{academy},'%') limit #{pageNum},#{pageSize}")
+    List<Teacher> selectAll(String username, String academy, Integer pageNum, Integer pageSize);
 
-    @Select("select count(*) from teacher")
-    Integer selectAllTotal();
+    @Select("select count(*) from teacher where username like concat('%',#{username},'%') and academy like concat('%',#{academy},'%') ")
+    Integer selectAllTotal(String username, String academy);
 
     @Delete("delete from teacher where t_id = #{t_id}")
     int delete(int t_id);
