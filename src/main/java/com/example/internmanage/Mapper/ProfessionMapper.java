@@ -33,11 +33,11 @@ public interface ProfessionMapper {
      * 通过岗位id删除岗位记录(彻底删除)
      * 角色：管理员
      *
-     * @param profession 只包含岗位id
+     * @param id 岗位id
      * @return 0或1
      */
     @Delete("delete from profession where id = #{id}")
-    int delCProfession(Profession profession);
+    int delCProfession(int id);
 
     /**
      * 查询相应企业的岗位信息
@@ -101,11 +101,11 @@ public interface ProfessionMapper {
      * 通过岗位id删除岗位记录(假删除)
      * 角色：企业
      *
-     * @param profession 只包含岗位id
+     * @param id 岗位id
      * @return 0或1
      */
     @Update("update profession set del = 1 where id = #{id}")
-    int delProfession(Profession profession);
+    int delProfession(int id);
 
     /**
      * 根据实体类的信息来更新数据库的岗位记录(整条一起修改)

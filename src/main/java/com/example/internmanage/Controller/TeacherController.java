@@ -6,6 +6,8 @@ import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("teacher")
 public class TeacherController {
@@ -37,5 +39,10 @@ public class TeacherController {
     @RequestMapping("delete")
     public R teacherDelete(@RequestBody Teacher teacher) {
         return teacherService.delete(teacher.getT_id());
+    }
+
+    @PostMapping("/deleteMultiple")
+    public R deleteTeacher(@RequestBody List<Integer> ids){
+        return teacherService.deleteMultiple(ids);
     }
 }
