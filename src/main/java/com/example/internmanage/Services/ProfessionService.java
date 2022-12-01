@@ -22,9 +22,9 @@ public class ProfessionService {
     }
 
 
-    public R delCProfession(Profession profession) {
+    public R delCProfession(int id) {
         HashMap<String, Object> ret = new HashMap<>();
-        if (professionMapper.delCProfession(profession) != 0) {
+        if (professionMapper.delCProfession(id) != 0) {
             ret.put("status", true);
             ret.put("msg", "删除成功");
             return R.success().data(ret);
@@ -32,6 +32,16 @@ public class ProfessionService {
         ret.put("status", false);
         ret.put("msg", "删除失败");
         return R.success().data(ret);
+    }
+
+    public R deleteCMultiple(List<Integer> ids) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (professionMapper.delCProfession(ids.get(i)) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
     }
 
     public R selectAllOfCom(Integer pageNum, Integer pageSize, Integer com_id) {
@@ -74,9 +84,9 @@ public class ProfessionService {
         return R.failed().data(ret);
     }
 
-    public R delProfession(Profession profession) {
+    public R delProfession(int id) {
         HashMap<String, Object> ret = new HashMap<>();
-        if (professionMapper.delProfession(profession) != 0) {
+        if (professionMapper.delProfession(id) != 0) {
             ret.put("status", true);
             ret.put("msg", "删除成功");
             return R.success().data(ret);
@@ -84,6 +94,16 @@ public class ProfessionService {
         ret.put("status", false);
         ret.put("msg", "删除失败");
         return R.failed().data(ret);
+    }
+
+    public R deleteMultiple(List<Integer> ids) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (professionMapper.delProfession(ids.get(i)) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
     }
 
     public R updateProfession(Profession profession) {
