@@ -50,11 +50,12 @@ public class FileController {
     @GetMapping("/file/download")
     public String fileDownload(HttpServletResponse response, HttpServletRequest request) throws IOException {
         String url = request.getParameter("url");
+        String filename = url;
         url=URL+url;
         //获得输入流
         FileInputStream inputStream = new FileInputStream(new java.io.File(url));
         // 设置响应头、以附件形式打开文件
-//        response.setHeader("content-disposition", "attachment; fileName=" + file.getFileName());
+        response.setHeader("content-disposition", "attachment; fileName=" + filename);
         //获得输出流对象
         ServletOutputStream outputStream = response.getOutputStream();
         int len = 0;
