@@ -25,6 +25,11 @@ public class StudentController {
         return studentService.checkLogin(username, password);
     }
 
+    @PostMapping("upload")
+    public R upload(@RequestBody Student student){
+        return studentService.upload(student);
+    }
+
     @RequestMapping("register")
     public R studentRegister(@RequestBody Student student) {
         return studentService.register(student);

@@ -19,6 +19,9 @@ public interface StudentMapper {
     @Update("update student set username = #{username},password = #{password},specialty = #{specialty},classname = #{classname},academy = #{academy},sex = #{sex},phone = #{phone} where stu_id = #{stu_id}")
     int update(Student student);
 
+    @Update("update student set vitae = #{vitae} where stu_id = #{stu_id}")
+    int upload(Student student);
+
     @Select("select * from student where del = 0")
     List<Student> selectAll();
 
