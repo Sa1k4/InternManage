@@ -19,10 +19,9 @@ public class CompanyController {
     }
 
     @RequestMapping("login")
-    public R companyLogin(@RequestBody Company company) {
-        String name = company.getUsername();
-        String password = company.getPassword();
-        return companyService.checkLogin(name, password);
+    public R companyLogin(@RequestParam String username,
+                          @RequestParam String password) {
+        return companyService.checkLogin(username, password);
     }
 
     @RequestMapping("register")

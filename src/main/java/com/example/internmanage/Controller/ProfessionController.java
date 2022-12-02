@@ -41,7 +41,7 @@ public class ProfessionController {
 
     @GetMapping("conditionQuery")
     public R professionConditionQuery(@RequestParam Integer pageNum, @RequestParam Integer pageSize,
-                                      @RequestParam Integer com_id, @RequestParam String name, @RequestParam(defaultValue = "0") Integer status) {
+                                      @RequestParam Integer com_id, @RequestParam String name, @RequestParam(defaultValue = "1") Integer status) {
         System.out.println(name);
         return professionService.conditionQuery(pageNum,pageSize,com_id,name,status);
     }

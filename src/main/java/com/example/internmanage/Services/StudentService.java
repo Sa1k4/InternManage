@@ -21,6 +21,12 @@ public class StudentService {
         else return R.failed();
     }
 
+    public R upload(Student student) {
+        if (studentMapper.upload(student) !=0)
+            return R.success();
+        else return R.failed();
+    }
+
     public R register(Student student) {
         if (studentMapper.register(student) != 0)
             return R.success();
