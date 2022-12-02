@@ -7,14 +7,14 @@ public class Teacher {
     private String sex;
     private String phone;
     private String academy;
-    private int status;
+    private int del;
 
-    public int getStatus() {
-        return status;
+    public int getDel() {
+        return del;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setDel(int del) {
+        this.del = del;
     }
 
     public int getT_id() {

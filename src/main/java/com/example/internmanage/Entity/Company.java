@@ -7,14 +7,14 @@ public class Company {
     private String company_licence;
     private String username;
     private String password;
-    private int status;
+    private int del;
 
-    public int getStatus() {
-        return status;
+    public int getDel() {
+        return del;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setDel(int del) {
+        this.del = del;
     }
 
     public int getCpmy_id() {

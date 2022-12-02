@@ -13,6 +13,7 @@ import java.util.List;
 public class TeacherController {
 
     private TeacherService teacherService;
+
     @Autowired
     public void setTeacherService(TeacherService teacherService) {
         this.teacherService = teacherService;
@@ -45,7 +46,7 @@ public class TeacherController {
     }
 
     @PostMapping("/deleteMultiple")
-    public R deleteTeacher(@RequestBody List<Integer> ids){
+    public R deleteTeacher(@RequestBody List<Integer> ids) {
         return teacherService.deleteMultiple(ids);
     }
 
@@ -57,5 +58,17 @@ public class TeacherController {
     @GetMapping("/applyOfYes{id}")
     public R teacherApplyOfYes(@PathVariable int id) {
         return teacherService.applyOfYes(id);
+    }
+
+    @GetMapping("selectApply")
+    public R selectApply(@RequestParam(defaultValue = "1") int apply,
+                         @RequestParam int t_id,
+                         @RequestParam Integer pageNum,
+                         @RequestParam Integer pageSize,
+                         @RequestParam String student_name,
+                         @RequestParam String student_class,
+                         @RequestParam String student_id
+    ) {
+        return teacherService.selectApply(apply, t_id, pageNum, pageSize, student_name, student_class, student_id);
     }
 }

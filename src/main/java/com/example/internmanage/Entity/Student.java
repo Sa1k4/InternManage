@@ -9,14 +9,32 @@ public class Student {
     private String academy;
     private String sex;
     private String phone;
-    private int status;
+    private int del;
+    private String vitae;
+    private int apply;
 
-    public int getStatus() {
-        return status;
+    public String getVitae() {
+        return vitae;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setVitae(String vitae) {
+        this.vitae = vitae;
+    }
+
+    public int getApply() {
+        return apply;
+    }
+
+    public void setApply(int apply) {
+        this.apply = apply;
+    }
+
+    public int getDel() {
+        return del;
+    }
+
+    public void setDel(int del) {
+        this.del = del;
     }
 
     public int getStu_id() {
