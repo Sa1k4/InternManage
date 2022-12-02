@@ -62,4 +62,10 @@ public class StudentService {
             return R.success();
         else return R.failed();
     }
+
+    public R apply(int stu_id) {
+        if (studentMapper.apply(stu_id) != 0) {
+            return R.success();
+        } else return R.failed();
+    }
 }

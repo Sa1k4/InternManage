@@ -48,4 +48,14 @@ public class TeacherController {
     public R deleteTeacher(@RequestBody List<Integer> ids){
         return teacherService.deleteMultiple(ids);
     }
+
+    @GetMapping("/applyOfNo{id}")
+    public R teacherApplyOfNo(@PathVariable int id) {
+        return teacherService.applyOfNo(id);
+    }
+
+    @GetMapping("/applyOfYes{id}")
+    public R teacherApplyOfYes(@PathVariable int id) {
+        return teacherService.applyOfYes(id);
+    }
 }

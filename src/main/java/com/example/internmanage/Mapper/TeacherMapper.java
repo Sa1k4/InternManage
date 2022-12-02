@@ -10,6 +10,9 @@ public interface TeacherMapper {
     @Select("select password from teacher where t_id = #{username} and del = 0")
     String checkLogin(int username);
 
+    @Select("select * from teacher where t_id = #{username} and del = 0")
+    Teacher selectTeacher(int username);
+
     @Insert("insert into teacher (t_id,username,password,sex,phone,academy) values (#{t_id},#{username},#{password},#{sex},#{phone},#{academy})")
     int register(Teacher teacher);
 
@@ -24,4 +27,10 @@ public interface TeacherMapper {
 
     @Update("update teacher set del = 1 where t_id = #{t_id}")
     int delete(int t_id);
+
+    @Update("update student set apply = 0 where stu_id = #{stu_id}")
+    int applyOfNo(int stu_id);
+
+    @Update("update student set apply = 2 where stu_id = #{stu_id}")
+    int applyOfYes(int stu_id);
 }
