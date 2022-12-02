@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface TeacherMapper {
     @Select("select password from teacher where t_id = #{username} and del = 0")
-    String checkLogin(String username);
+    String checkLogin(int username);
 
     @Insert("insert into teacher (t_id,username,password,sex,phone,academy) values (#{t_id},#{username},#{password},#{sex},#{phone},#{academy})")
     int register(Teacher teacher);

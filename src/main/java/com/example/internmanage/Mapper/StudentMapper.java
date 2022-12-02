@@ -8,10 +8,10 @@ import java.util.List;
 @Mapper
 public interface StudentMapper {
     @Select("select password from student where stu_id = #{username} and del = 0")
-    String checkLogin(String username);
+    String checkLogin(int username);
 
     @Select("select * from student where stu_id = #{stu_id} and del = 0")
-    Student selectStudent(String stu_id);
+    Student selectStudent(int stu_id);
 
     @Insert("insert into student (stu_id,username,password,specialty,classname,academy,sex,phone) values (#{stu_id},#{username},#{password},#{specialty},#{classname},#{academy},#{sex},#{phone})")
     int register(Student student);
