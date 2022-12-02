@@ -16,7 +16,7 @@ public class TeacherService {
 
     public R checkLogin(Integer username, String password) {
         if (password.equals(teacherMapper.checkLogin(username)))
-            return R.success();
+            return R.success().data("userinfo",teacherMapper.selectTeacher(username));
         else return R.failed();
     }
 
@@ -56,5 +56,17 @@ public class TeacherService {
         if (count == ids.size())
             return R.success();
         else return R.failed();
+    }
+
+    public R applyOfNo(int stu_id) {
+        if (teacherMapper.applyOfNo(stu_id) != 0) {
+            return R.success();
+        } else return R.failed();
+    }
+
+    public R applyOfYes(int stu_id){
+        if (teacherMapper.applyOfYes(stu_id) != 0) {
+            return R.success();
+        } else return R.failed();
     }
 }

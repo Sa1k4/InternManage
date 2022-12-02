@@ -16,7 +16,7 @@ public class CompanyService {
 
     public R checkLogin(String username, String password) {
         if (password.equals(companyMapper.checkLogin(username)))
-            return R.success();
+            return R.success().data("userinfo",companyMapper.selectCompany(username));
 //            return "loginSuccess";
         else return R.failed();
 //        else return "loginFailed";

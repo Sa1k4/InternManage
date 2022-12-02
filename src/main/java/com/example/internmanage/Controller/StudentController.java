@@ -58,4 +58,9 @@ public class StudentController {
     public R deleteStudent(@RequestBody List<Integer> ids) {
         return studentService.deleteMultiple(ids);
     }
+
+    @GetMapping("/apply{id}")
+    public R studentApply(@PathVariable int id) {
+        return studentService.apply(id);
+    }
 }

@@ -10,6 +10,9 @@ public interface CompanyMapper {
     @Select("select password from company where username = #{username} and del = 0")
     String checkLogin(String username);
 
+    @Select("select * from company where username = #{username} and del = 0")
+    Company selectCompany(String username);
+
     @Insert("insert into company (company_name,company_legal,company_licence,username,password) values (#{company_name},#{company_legal},#{company_licence},#{username},#{password})")
     int register(Company company);
 

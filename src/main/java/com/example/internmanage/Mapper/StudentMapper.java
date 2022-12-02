@@ -31,4 +31,10 @@ public interface StudentMapper {
 
     @Update("update student set del = 1 where stu_id = #{stu_id}")
     int delete(int stu_id);
+
+    @Update("update student set apply = 1 where stu_id = #{stu_id}")
+    int apply(int stu_id);
+
+
+
 }
