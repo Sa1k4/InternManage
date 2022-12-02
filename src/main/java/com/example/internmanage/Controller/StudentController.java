@@ -20,10 +20,9 @@ public class StudentController {
 
 
     @RequestMapping("login")
-    public R studentLogin(@RequestBody Student student) {
-        String name = student.getUsername();
-        String password = student.getPassword();
-        return studentService.checkLogin(name, password);
+    public R studentLogin(@RequestParam Integer username,
+                          @RequestParam String password) {
+        return studentService.checkLogin(username, password);
     }
 
     @RequestMapping("register")

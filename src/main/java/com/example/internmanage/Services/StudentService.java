@@ -15,7 +15,7 @@ public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
-    public R checkLogin(String username, String password) {
+    public R checkLogin(Integer username, String password) {
         if (password.equals(studentMapper.checkLogin(username)))
             return R.success().data("userinfo", studentMapper.selectStudent(username));
         else return R.failed();

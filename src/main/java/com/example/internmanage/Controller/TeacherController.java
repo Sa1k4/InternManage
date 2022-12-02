@@ -19,10 +19,9 @@ public class TeacherController {
     }
 
     @RequestMapping("login")
-    public R teacherLogin(@RequestBody Teacher teacher) {
-        String name = teacher.getUsername();
-        String password = teacher.getPassword();
-        return teacherService.checkLogin(name, password);
+    public R teacherLogin(@RequestParam Integer username,
+                          @RequestParam String password) {
+        return teacherService.checkLogin(username, password);
     }
 
     @RequestMapping("register")

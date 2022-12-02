@@ -14,7 +14,7 @@ public class TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
 
-    public R checkLogin(String username, String password) {
+    public R checkLogin(Integer username, String password) {
         if (password.equals(teacherMapper.checkLogin(username)))
             return R.success();
         else return R.failed();
