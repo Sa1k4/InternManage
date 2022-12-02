@@ -1,5 +1,6 @@
 package com.example.internmanage.Mapper;
 
+import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Entity.Teacher;
 import org.apache.ibatis.annotations.*;
 
@@ -7,11 +8,17 @@ import java.util.List;
 
 @Mapper
 public interface TeacherMapper {
-    @Select("select password from teacher where t_id = #{username} and del = 0")
-    String checkLogin(int username);
+    @Select("select password from teacher where t_id = #{t_id} and del = 0")
+    String checkLogin(int t_id);
 
-    @Select("select * from teacher where t_id = #{username} and del = 0")
-    Teacher selectTeacher(int username);
+    @Select("select * from teacher where t_id = #{t_id} and del = 0")
+    Teacher selectTeacher(int t_id);
+
+    @Select("select * from student where username like concat('%', #{student_name}, '%') and classname like concat('%', #{student_class}, '%') and stu_id like concat('%', #{student_id}, '%') and apply = #{apply} and stu_id in (select stu_id from stu_t where t_id = #{t_id}) and del = 0 limit #{pageNum},#{pageSize}")
+    List<Student> selectApply(int apply,int t_id,Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id);
+
+    @Select("select count(*) from student where username like concat('%', #{student_name}, '%') and classname like concat('%', #{student_class}, '%') and stu_id like concat('%', #{student_id}, '%') and apply = #{apply} and stu_id in (select stu_id from stu_t where t_id = #{t_id}) and del = 0")
+    int selectApplyTotal(int apply,int t_id, String student_name, String student_class, String student_id);
 
     @Insert("insert into teacher (t_id,username,password,sex,phone,academy) values (#{t_id},#{username},#{password},#{sex},#{phone},#{academy})")
     int register(Teacher teacher);

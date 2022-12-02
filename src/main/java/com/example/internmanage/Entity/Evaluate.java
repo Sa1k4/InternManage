@@ -10,14 +10,14 @@ public class Evaluate {
     private String com_name;
     private String eva_date;
     private String eva_content;
-    private int status;
+    private int del;
 
-    public int getStatus() {
-        return status;
+    public int getDel() {
+        return del;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setDel(int del) {
+        this.del = del;
     }
 
     public int getEva_id() {

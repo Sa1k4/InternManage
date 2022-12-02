@@ -1,5 +1,6 @@
 package com.example.internmanage.Services;
 
+import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Entity.Teacher;
 import com.example.internmanage.Mapper.TeacherMapper;
 import com.example.internmanage.Utils.R;
@@ -16,7 +17,7 @@ public class TeacherService {
 
     public R checkLogin(Integer username, String password) {
         if (password.equals(teacherMapper.checkLogin(username)))
-            return R.success().data("userinfo",teacherMapper.selectTeacher(username));
+            return R.success().data("userinfo", teacherMapper.selectTeacher(username));
         else return R.failed();
     }
 
@@ -64,9 +65,19 @@ public class TeacherService {
         } else return R.failed();
     }
 
-    public R applyOfYes(int stu_id){
+    public R applyOfYes(int stu_id) {
         if (teacherMapper.applyOfYes(stu_id) != 0) {
             return R.success();
         } else return R.failed();
+    }
+
+    public R selectApply(int apply, int t_id, Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = teacherMapper.selectApplyTotal(apply, t_id, student_name, student_class, student_id);
+        List<Student> result = teacherMapper.selectApply(apply, t_id, pageNum, pageSize, student_name, student_class, student_id);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
     }
 }
