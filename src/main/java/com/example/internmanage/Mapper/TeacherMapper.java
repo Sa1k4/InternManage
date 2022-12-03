@@ -40,4 +40,5 @@ public interface TeacherMapper {
 
     @Update("update student set apply = 2 where stu_id = #{stu_id}")
     int applyOfYes(int stu_id);
+
 }

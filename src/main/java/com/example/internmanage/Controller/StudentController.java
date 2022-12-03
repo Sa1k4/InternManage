@@ -13,6 +13,7 @@ import java.util.List;
 public class StudentController {
 
     private StudentService studentService;
+
     @Autowired
     public void setStudentService(StudentService studentService) {
         this.studentService = studentService;
@@ -26,7 +27,7 @@ public class StudentController {
     }
 
     @PostMapping("upload")
-    public R upload(@RequestBody Student student){
+    public R upload(@RequestBody Student student) {
         return studentService.upload(student);
     }
 
@@ -67,5 +68,17 @@ public class StudentController {
     @GetMapping("/apply{id}")
     public R studentApply(@PathVariable int id) {
         return studentService.apply(id);
+    }
+
+    // NOTE: 学生提交岗位申请
+    @GetMapping("applyPro")
+    public R studentApplyPro(@RequestParam int stu_id, @RequestParam int id) {
+        return studentService.applyPro(stu_id, id);
+    }
+
+    // NOTE: 检查学生是否就职
+    @GetMapping("checkPro")
+    public R studentCheckPro(@RequestParam int stu_id) {
+        return studentService.checkPro(stu_id);
     }
 }

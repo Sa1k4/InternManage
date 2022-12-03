@@ -74,4 +74,14 @@ public class StudentService {
             return R.success();
         } else return R.failed();
     }
+
+    public R applyPro(int stu_id, int id) {
+        if (studentMapper.applyPro(stu_id, id) != 0) {
+            return R.success();
+        } else return R.failed();
+    }
+
+    public R checkPro(int stu_id) {
+        return R.success().data("checkPro", studentMapper.checkPro(stu_id));
+    }
 }
