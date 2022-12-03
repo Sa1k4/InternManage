@@ -27,10 +27,10 @@ public class ProfessionService {
         if (professionMapper.delCProfession(id) != 0) {
             ret.put("status", true);
             ret.put("msg", "删除成功");
-            return R.success().data(ret);
+        } else {
+            ret.put("status", false);
+            ret.put("msg", "删除失败");
         }
-        ret.put("status", false);
-        ret.put("msg", "删除失败");
         return R.success().data(ret);
     }
 
@@ -77,11 +77,11 @@ public class ProfessionService {
         if (professionMapper.addProfession(profession) != 0) {
             ret.put("status", true);
             ret.put("msg", "新增成功");
-            return R.success().data(ret);
+        } else {
+            ret.put("status", false);
+            ret.put("msg", "新增失败");
         }
-        ret.put("status", false);
-        ret.put("msg", "新增失败");
-        return R.failed().data(ret);
+        return R.success().data(ret);
     }
 
     public R delProfession(int id) {
@@ -89,11 +89,11 @@ public class ProfessionService {
         if (professionMapper.delProfession(id) != 0) {
             ret.put("status", true);
             ret.put("msg", "删除成功");
-            return R.success().data(ret);
+        } else {
+            ret.put("status", false);
+            ret.put("msg", "删除失败");
         }
-        ret.put("status", false);
-        ret.put("msg", "删除失败");
-        return R.failed().data(ret);
+        return R.success().data(ret);
     }
 
     public R deleteMultiple(List<Integer> ids) {
@@ -111,11 +111,11 @@ public class ProfessionService {
         if (professionMapper.updateProfession(profession) != 0) {
             ret.put("status", true);
             ret.put("msg", "更新成功");
-            return R.success().data(ret);
+        } else {
+            ret.put("status", false);
+            ret.put("msg", "更新失败");
         }
-        ret.put("status", false);
-        ret.put("msg", "更新失败");
-        return R.failed().data(ret);
+        return R.success().data(ret);
     }
 
     public R openOrCloseProfession(Profession profession) {
@@ -123,10 +123,42 @@ public class ProfessionService {
         if (professionMapper.openOrCloseProfession(profession) != 0) {
             ret.put("status", true);
             ret.put("msg", "切换成功");
-            return R.success().data(ret);
+        }else {
+            ret.put("status", false);
+            ret.put("msg", "切换失败");
         }
-        ret.put("status", false);
-        ret.put("msg", "切换失败");
-        return R.failed().data(ret);
+        return R.success().data(ret);
     }
+
+    public R selectPfToPsNotPsProId(int stu_id, String name, Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectPfToPsNotPsProIdTotal(stu_id, name);
+        List<Profession> result = professionMapper.selectPfToPsNotPsProId(stu_id, name, pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R selectPsOfNo(int stu_id, String name, Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectPsOfNoTotal(stu_id, name);
+        List<Profession> result = professionMapper.selectPsOfNo(stu_id, name, pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R selectPsOfYes(int stu_id, String name, Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectPsOfYesTotal(stu_id, name);
+        List<Profession> result = professionMapper.selectPsOfYes(stu_id, name, pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+
 }

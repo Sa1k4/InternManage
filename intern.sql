@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Saika
+ Source Server         : PK
  Source Server Type    : MySQL
- Source Server Version : 50556
+ Source Server Version : 50739 (5.7.39)
  Source Host           : localhost:3306
  Source Schema         : intern
 
  Target Server Type    : MySQL
- Target Server Version : 50556
+ Target Server Version : 50739 (5.7.39)
  File Encoding         : 65001
 
- Date: 03/12/2022 21:11:57
+ Date: 04/12/2022 00:19:29
 */
 
 SET NAMES utf8mb4;
@@ -119,11 +119,13 @@ CREATE TABLE `pro_stu`  (
   `apply_com` int(11) NOT NULL DEFAULT 0 COMMENT '岗位申请是否通过，0申请中，1通过，2不通过，默认0',
   `del` int(11) NOT NULL DEFAULT 0 COMMENT '0默认，1离职',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pro_stu
 -- ----------------------------
+INSERT INTO `pro_stu` VALUES (1, 209350322, 1, 0, 0);
+INSERT INTO `pro_stu` VALUES (2, 209350301, 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for profession
@@ -212,7 +214,7 @@ CREATE TABLE `stu_t`  (
   `stu_id` int(12) NOT NULL,
   `t_id` int(12) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of stu_t

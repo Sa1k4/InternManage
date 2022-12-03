@@ -13,6 +13,7 @@ import java.util.List;
 public class CompanyController {
 
     private CompanyService companyService;
+
     @Autowired
     public void setCompanyService(CompanyService companyService) {
         this.companyService = companyService;
@@ -47,6 +48,36 @@ public class CompanyController {
     @PostMapping("/deleteMultiple")
     public R deleteCompany(@RequestBody List<Integer> ids) {
         return companyService.deleteMultiple(ids);
+    }
+
+    // NOTE: 根据岗位id 查询 相应公司的详细信息
+    @GetMapping("/selectOfCompany")
+    public R selectOfCompany(@RequestParam int id) {
+        return companyService.selectOfCompany(id);
+    }
+
+    // NOTE: 显示所有的申请(分页)
+    @GetMapping("/selectAllOfProStu")
+    public R selectAllOfProStu(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return companyService.selectAllOfProStu(pageNum, pageSize);
+    }
+
+    // NOTE: 同意学生的申请
+    @GetMapping("/applyOfStudentYes")
+    public R applyOfStudentYes(@RequestParam int id, @RequestParam int stu_id) {
+        return companyService.applyOfStudentYes(id, stu_id);
+    }
+
+    // NOTE: 拒绝学生的申请
+    @GetMapping("applyOfStudentNo")
+    public R applyOfStudentNo(@RequestParam int id) {
+        return companyService.applyOfStudentNo(id);
+    }
+
+    // NOTE: 不允许重复申请(检查数据库是否有相同数据)
+    @GetMapping("checkApplyOfStudent")
+    public R checkApplyOfStudent(int stu_id, int pro_id) {
+        return companyService.checkApplyOfStudent(stu_id, pro_id);
     }
 
 }

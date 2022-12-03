@@ -12,13 +12,14 @@ import java.util.List;
 @RequestMapping("profession")
 public class ProfessionController {
     private ProfessionService professionService;
+
     @Autowired
     public void setProfessionService(ProfessionService professionService) {
         this.professionService = professionService;
     }
 
     @GetMapping("selectAllAndDel")
-    public R professionSelectAll(@RequestParam Integer pageNum,@RequestParam Integer pageSize,
+    public R professionSelectAll(@RequestParam Integer pageNum, @RequestParam Integer pageSize,
                                  @RequestParam Integer del) {
         return professionService.selectAllAndDel(pageNum, pageSize, del);
     }
@@ -29,7 +30,7 @@ public class ProfessionController {
     }
 
     @PostMapping("/deleteCMultiple")
-    public R deleteCProfession(@RequestBody List<Integer> ids){
+    public R deleteCProfession(@RequestBody List<Integer> ids) {
         return professionService.deleteCMultiple(ids);
     }
 
@@ -43,7 +44,7 @@ public class ProfessionController {
     public R professionConditionQuery(@RequestParam Integer pageNum, @RequestParam Integer pageSize,
                                       @RequestParam Integer com_id, @RequestParam String name, @RequestParam(defaultValue = "1") Integer status) {
         System.out.println(name);
-        return professionService.conditionQuery(pageNum,pageSize,com_id,name,status);
+        return professionService.conditionQuery(pageNum, pageSize, com_id, name, status);
     }
 
     @RequestMapping("addProfession")
@@ -57,7 +58,7 @@ public class ProfessionController {
     }
 
     @PostMapping("/deleteMultiple")
-    public R deleteProfession(@RequestBody List<Integer> ids){
+    public R deleteProfession(@RequestBody List<Integer> ids) {
         return professionService.deleteMultiple(ids);
     }
 
@@ -69,6 +70,24 @@ public class ProfessionController {
     @RequestMapping("openOrCloseProfession")
     public R professionOpenOrCloseProfession(@RequestBody Profession profession) {
         return professionService.openOrCloseProfession(profession);
+    }
+
+    // NOTE: profession表与pro_stu对比，排除pro_stu表里确认的岗位(分页、根据岗位名称模糊搜索)
+    @GetMapping("selectPfToPsNotPsProId")
+    public R selectPfToPsNotPsProId(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return professionService.selectPfToPsNotPsProId(stu_id, name, pageNum, pageSize);
+    }
+
+    // NOTE: 在stu_pro表里面查出未通过的岗位(分页、根据岗位名称模糊搜索)
+    @GetMapping("selectPsOfNo")
+    public R selectPsOfNo(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return professionService.selectPsOfNo(stu_id, name, pageNum, pageSize);
+    }
+
+    // NOTE: 在stu_pro表里面查出通过的岗位(分页、根据岗位名称模糊搜索)
+    @GetMapping("selectPsOfYes")
+    public R selectPsOfYes(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return professionService.selectPsOfYes(stu_id, name, pageNum, pageSize);
     }
 
 }

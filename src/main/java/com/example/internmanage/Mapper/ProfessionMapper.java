@@ -11,13 +11,13 @@ public interface ProfessionMapper {
      * 查询所有企业的岗位信息 或 查询所有企业被删除的岗位信息
      * 角色：管理员
      *
-     * @param pageNum 当前页
+     * @param pageNum  当前页
      * @param pageSize 页大小
-     * @param del 删除与否的状态
+     * @param del      删除与否的状态
      * @return 所有企业的岗位信息 或 所有企业被删除的岗位信息
      */
     @Select("select * from profession where del = #{del} limit #{pageNum},#{pageSize}")
-    List<Profession> selectAllAndDel(Integer pageNum, Integer pageSize,Integer del);
+    List<Profession> selectAllAndDel(Integer pageNum, Integer pageSize, Integer del);
 
     /**
      * 查询所有企业的岗位信息记录数 或 查询所有企业被删除的岗位信息记录数
@@ -127,4 +127,70 @@ public interface ProfessionMapper {
     @Update("update profession set status=#{status} where id=#{id}")
     int openOrCloseProfession(Profession profession);
 
+
+    /**
+     * profession表与pro_stu对比，排除pro_stu表里确认的岗位(分页、根据岗位名称模糊搜索)
+     *
+     * @param stu_id   学生id
+     * @param name     岗位名称
+     * @param pageNum  当前页
+     * @param pageSize 页大小
+     * @return 岗位信息
+     */
+    @Select("SELECT * FROM profession pf left join pro_stu ps on pf.id = ps.pro_id where pf.id not in (select pro_id from pro_stu where stu_id = #{stu_id} and ps.apply_com = 1 and pf.del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    List<Profession> selectPfToPsNotPsProId(int stu_id, String name, Integer pageNum, Integer pageSize);
+
+    /**
+     * profession表与pro_stu对比，排除pro_stu表里确认的岗位(分页、根据岗位名称模糊搜索) 的 总记录数
+     *
+     * @param stu_id 学生id
+     * @param name   岗位名称
+     * @return 总记录数
+     */
+    @Select("SELECT count(*) FROM profession pf left join pro_stu ps on pf.id = ps.pro_id where pf.id not in (select pro_id from pro_stu where stu_id = #{stu_id} and ps.apply_com = 1 and pf.del = 0) and name like concat('%',#{name},'%')")
+    Integer selectPfToPsNotPsProIdTotal(int stu_id, String name);
+
+    /**
+     * 在stu_pro表里面查出未通过的岗位(分页、根据岗位名称模糊搜索)
+     *
+     * @param stu_id 学生id
+     * @param name 岗位名称
+     * @param pageNum 当前页
+     * @param pageSize 页大小
+     * @return 未通过的岗位
+     */
+    @Select("SELECT * FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 2 and del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    List<Profession> selectPsOfNo(int stu_id, String name, Integer pageNum, Integer pageSize);
+
+    /**
+     * 在stu_pro表里面查出未通过的岗位(分页、根据岗位名称模糊搜索) 的 总记录数
+     *
+     * @param stu_id 学生id
+     * @param name 岗位名称
+     * @return 总记录数
+     */
+    @Select("SELECT count(*) FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 2 and del = 0) and name like concat('%',#{name},'%')")
+    Integer selectPsOfNoTotal(int stu_id, String name);
+
+    /**
+     * 在stu_pro表里面查出通过的岗位(分页、根据岗位名称模糊搜索)
+     *
+     * @param stu_id 学生id
+     * @param name 岗位名称
+     * @param pageNum 当前页
+     * @param pageSize 页大小
+     * @return 通过的岗位
+     */
+    @Select("SELECT * FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    List<Profession> selectPsOfYes(int stu_id, String name, Integer pageNum, Integer pageSize);
+
+    /**
+     * 在stu_pro表里面查出通过的岗位(分页、根据岗位名称模糊搜索) 的 总记录数
+     *
+     * @param stu_id 学生id
+     * @param name 岗位名称
+     * @return 总记录数
+     */
+    @Select("SELECT count(*) FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 0) and name like concat('%',#{name},'%')")
+    Integer selectPsOfYesTotal(int stu_id, String name);
 }
