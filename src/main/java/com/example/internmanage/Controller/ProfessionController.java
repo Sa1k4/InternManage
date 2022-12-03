@@ -47,6 +47,13 @@ public class ProfessionController {
         return professionService.conditionQuery(pageNum, pageSize, com_id, name, status);
     }
 
+    @GetMapping("conditionQueryA")
+    public R professionConditionQueryA(@RequestParam Integer pageNum, @RequestParam Integer pageSize,
+                                      @RequestParam String name, @RequestParam(defaultValue = "1") Integer status) {
+        System.out.println(name);
+        return professionService.conditionQueryA(pageNum,pageSize,name,status);
+    }
+
     @RequestMapping("addProfession")
     public R professionAddProfession(@RequestBody Profession profession) {
         return professionService.addProfession(profession);

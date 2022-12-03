@@ -75,6 +75,9 @@ public interface ProfessionMapper {
     @Select("select * from profession where name like concat('%',#{name},'%') and status= #{status} and com_id=#{com_id} and del = 0 limit #{pageNum},#{pageSize}")
     List<Profession> conditionQuery(Integer com_id, String name, Integer status, Integer pageNum, Integer pageSize);
 
+    @Select("select * from profession where name like concat('%',#{name},'%') and status= #{status} and del = 0 limit #{pageNum},#{pageSize}")
+    List<Profession> conditionQueryA(String name, Integer status, Integer pageNum, Integer pageSize);
+
     /**
      * 根据条件查询岗位信息的总记录条数
      * 角色：企业
@@ -86,6 +89,9 @@ public interface ProfessionMapper {
      */
     @Select("select count(*) from profession where name like concat('%',#{name},'%') and status= #{status} and com_id=#{com_id} and del = 0")
     Integer conditionQueryTotal(Integer com_id, String name, Integer status);
+
+    @Select("select count(*) from profession where name like concat('%',#{name},'%') and status= #{status} and del = 0")
+    Integer conditionQueryTotalA(String name, Integer status);
 
     /**
      * 通过实体类新增岗位信息
