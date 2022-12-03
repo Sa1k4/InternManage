@@ -58,6 +58,13 @@ public class ProfessionService {
         return getR(total, result);
     }
 
+    public R conditionQueryA(Integer pageNum, Integer pageSize, String name, Integer status) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.conditionQueryTotalA(name, status);
+        List<Profession> result = professionMapper.conditionQueryA(name, status, pageNum, pageSize);
+        return getR(total, result);
+    }
+
     /**
      * 复用
      *
