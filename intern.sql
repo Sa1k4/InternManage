@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : PK
+ Source Server         : Saika
  Source Server Type    : MySQL
- Source Server Version : 50739 (5.7.39)
+ Source Server Version : 50556
  Source Host           : localhost:3306
  Source Schema         : intern
 
  Target Server Type    : MySQL
- Target Server Version : 50739 (5.7.39)
+ Target Server Version : 50556
  File Encoding         : 65001
 
- Date: 02/12/2022 23:34:34
+ Date: 03/12/2022 21:11:57
 */
 
 SET NAMES utf8mb4;
@@ -54,7 +54,7 @@ CREATE TABLE `company`  (
 -- ----------------------------
 -- Records of company
 -- ----------------------------
-INSERT INTO `company` VALUES (1, '权威企业', '张三', '/share/private', 'root', '123456', 0);
+INSERT INTO `company` VALUES (1, '权威企业', '张三', '1669995857022cat2.png', 'root', '123456', 0);
 INSERT INTO `company` VALUES (2, '生作和斯', '金明', 'http://voi.io/gtc', 'fyhxftgentsg', 'ipxtrcxghkuiqtcgb', 0);
 INSERT INTO `company` VALUES (3, '样专面', '白强', 'http://fbmlrow.org/xhtvopc', 'ecohpjlzxfl', 'xkcskurhyjvgthzpj', 0);
 INSERT INTO `company` VALUES (4, '主感达任合场代', '秦芳', 'http://hhyjim.ug/wkqisbzq', 'zjdngoxvcguq', 'cyqyuvl', 0);
@@ -116,8 +116,8 @@ CREATE TABLE `pro_stu`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stu_id` int(12) NOT NULL,
   `pro_id` int(11) NOT NULL,
-  `apply_com` int(11) NOT NULL DEFAULT 0 COMMENT '岗位申请是否通过，0未审批，1通过，2不通过，默认0',
-  `apply_stu` int(11) NOT NULL DEFAULT 0 COMMENT '学生是否确定岗位，0未确定，1确定，默认0',
+  `apply_com` int(11) NOT NULL DEFAULT 0 COMMENT '岗位申请是否通过，0申请中，1通过，2不通过，默认0',
+  `del` int(11) NOT NULL DEFAULT 0 COMMENT '0默认，1离职',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
@@ -136,7 +136,7 @@ CREATE TABLE `profession`  (
   `introduce` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '介绍岗位信息，包括公司联系方式和地址',
   `apply_num` int(11) NOT NULL DEFAULT 0 COMMENT '人数',
   `com_id` int(11) NOT NULL COMMENT '企业id',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '岗位状态 0关闭，1开启',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '岗位状态 0未审核，1开启，2关闭，3未通过审核',
   `del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '默认0，删除后是显示1',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
@@ -144,11 +144,11 @@ CREATE TABLE `profession`  (
 -- ----------------------------
 -- Records of profession
 -- ----------------------------
-INSERT INTO `profession` VALUES (1, '软件设计', '3000', '岗位信息：XXXX，地址：XXXX', 8, 1, 0, 0);
+INSERT INTO `profession` VALUES (1, '软件设计', '3000-5000', '岗位信息：XXXX，地址：XXXXx', 8, 1, 1, 0);
 INSERT INTO `profession` VALUES (2, '更二近处', '2502', '地址：甘肃省 临夏回族自治州 和政县，联系方式：18693471636', 13, 2, 0, 0);
 INSERT INTO `profession` VALUES (3, '少志按先年', '4664', '地址：山西省 朔州市 平鲁区，联系方式：18178634341', 7, 8, 0, 0);
 INSERT INTO `profession` VALUES (4, '用政更快争得', '2155', '地址：浙江省 绍兴市 越城区，联系方式：18183461616', 9, 3, 0, 0);
-INSERT INTO `profession` VALUES (5, '政风政近分程温', '3054', '地址：天津 天津市 河东区，联系方式：13493452625', 10, 1, 0, 0);
+INSERT INTO `profession` VALUES (5, '政风政近分程温', '3054', '地址：天津 天津市 河东区，联系方式：13493452625', 10, 1, 3, 0);
 INSERT INTO `profession` VALUES (6, '本完根东克委素', '3505', '地址：河南省 南阳市 宛城区，联系方式：18147015962', 9, 2, 0, 0);
 INSERT INTO `profession` VALUES (7, '属形据作社', '2442', '地址：云南省 昭通市 鲁甸县，联系方式：18172584306', 9, 8, 0, 0);
 INSERT INTO `profession` VALUES (8, '干重题片分省', '4403', '地址：新疆维吾尔自治区 阿克苏地区 乌什县，联系方式：18126944836', 10, 1, 0, 0);
@@ -165,6 +165,7 @@ CREATE TABLE `stu_leave`  (
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `start_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `end_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `apply` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '0申请，1同意，2不同意',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
@@ -178,7 +179,7 @@ CREATE TABLE `stu_leave`  (
 DROP TABLE IF EXISTS `stu_plan`;
 CREATE TABLE `stu_plan`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `stu_id` int(12) NULL DEFAULT NULL,
+  `stu_id` int(11) NULL DEFAULT NULL,
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
@@ -188,24 +189,34 @@ CREATE TABLE `stu_plan`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for stu_repo
+-- ----------------------------
+DROP TABLE IF EXISTS `stu_repo`;
+CREATE TABLE `stu_repo`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stu_id` int(11) NULL DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of stu_repo
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for stu_t
 -- ----------------------------
 DROP TABLE IF EXISTS `stu_t`;
 CREATE TABLE `stu_t`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `stu_id` int(12) NULL DEFAULT NULL,
-  `t_id` int(12) NULL DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `stu_id` int(12) NOT NULL,
+  `t_id` int(12) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of stu_t
 -- ----------------------------
-INSERT INTO `stu_t` VALUES (1, 209350322, 10001);
-INSERT INTO `stu_t` VALUES (2, 209350305, 10003);
-INSERT INTO `stu_t` VALUES (3, 209350321, 10001);
-INSERT INTO `stu_t` VALUES (4, 209350340, 10001);
-INSERT INTO `stu_t` VALUES (5, 209350323, 10003);
 
 -- ----------------------------
 -- Table structure for stu_week
@@ -239,40 +250,40 @@ CREATE TABLE `student`  (
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系方式',
   `del` tinyint(1) NULL DEFAULT 0,
   `vitae` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '简历',
-  `apply` tinyint(1) NULL DEFAULT 0 COMMENT '实习申请，0未申请/未通过，1已申请，2通过',
+  `apply` tinyint(255) NULL DEFAULT 0 COMMENT '实习申请，0未申请/未通过，1已申请，2通过',
   PRIMARY KEY (`stu_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES (209350301, '方娜', 'uajsiyismm', '计算机网络技术', '2班', '护士学院', '女', '18131642936', 0, '/vitae/001', 0);
-INSERT INTO `student` VALUES (209350305, '邵平', 'vumllrfsduhi', '计算机应用技术', '2班', '软件学院', '女', '13483775641', 0, '/vitae/002', 0);
-INSERT INTO `student` VALUES (209350308, '龚静', 'atzotmcvjgepj', '自动化', '4班', '经贸学院', '女', '13224058835', 0, '/vitae/003', 0);
-INSERT INTO `student` VALUES (209350312, '阎洋', 'guwdjxqeg', '护理', '5班', '机电学院', '男', '18126179283', 0, '/vitae/004', 0);
-INSERT INTO `student` VALUES (209350318, '余敏', 'gldddfrtwhc', '软件工程', '5班', '护士学院', '女', '18116517665', 0, '/vitae/005', 0);
-INSERT INTO `student` VALUES (209350319, '金丽', 'vzfeonn', '自动化', '3班', '机电学院', '男', '18637827549', 0, '/vitae/006', 0);
-INSERT INTO `student` VALUES (209350321, '秦娟', 'dyqctjeedblmcuvau', '电子商务', '4班', '计算机学院', '女', '18187247411', 0, '/vitae/007', 2);
-INSERT INTO `student` VALUES (209350322, '陈一', '123456', '计算机科学与技术', '3班', '计算机学院', '男', '17345598426', 0, '/vitae/008', 1);
-INSERT INTO `student` VALUES (209350323, '黄娟', 'wijipqinyrl', '机械工程', '2班', '软件学院', '女', '19813465278', 0, '/vitae/009', 1);
-INSERT INTO `student` VALUES (209350329, '胡超', 'ivyesemmyffdvoegwhs', '电子商务', '3班', '软件学院', '男', '18691502697', 0, '/vitae/0010', 0);
-INSERT INTO `student` VALUES (209350340, '万洋', 'dlpliiirb', '机械工程', '1班', '计算机学院', '女', '18100641536', 0, '/vitae/0011', 0);
-INSERT INTO `student` VALUES (209350341, '赵艳', 'ojpqlgogqkbllhxfovb', '计算机应用技术', '2班', '经贸学院', '女', '18684631274', 0, '/vitae/0012', 0);
-INSERT INTO `student` VALUES (209350343, '叶静', 'mxkfjodq', '机械工程', '6班', '软件学院', '男', '18158179141', 0, '/vitae/0013', 0);
-INSERT INTO `student` VALUES (209350346, '程洋', 'vxcsobwvym', '护理', '5班', '护士学院', '男', '18132487635', 0, '/vitae/0014', 0);
-INSERT INTO `student` VALUES (209350350, '曹强', 'eqkfaalfxupobojpdfgm', '机械工程', '2班', '机电学院', '男', '18127664465', 0, '/vitae/0015', 0);
-INSERT INTO `student` VALUES (209350357, '廖静', 'odyeiwtvrsybyplthci', '机械工程', '4班', '经贸学院', '男', '13564940943', 0, '/vitae/0016', 0);
-INSERT INTO `student` VALUES (209350360, '史敏', 'gluagcydwajolgtd', '计算机应用技术', '2班', '软件学院', '女', '18178665003', 0, '/vitae/0017', 0);
-INSERT INTO `student` VALUES (209350362, '郑桂英', 'vmxulcbntlczmmzawx', '护理', '5班', '机电学院', '男', '19805445818', 0, '/vitae/0018', 0);
-INSERT INTO `student` VALUES (209350365, '金霞', 'mdnwtbnmmiofejezbeh', '自动化', '2班', '经贸学院', '女', '18132548254', 0, '/vitae/0019', 0);
-INSERT INTO `student` VALUES (209350366, '于超', 'pamvwd', '机械工程', '5班', '经贸学院', '女', '18683988915', 0, '/vitae/0020', 0);
-INSERT INTO `student` VALUES (209350372, '赖秀兰', 'wkwhiirivktiwssepxzi', '计算机网络技术', '5班', '机电学院', '女', '13441873455', 0, '/vitae/0021', 0);
-INSERT INTO `student` VALUES (209350376, '方娜', 'lbudxldae', '计算机网络技术', '5班', '软件学院', '女', '18141576221', 0, '/vitae/0022', 0);
-INSERT INTO `student` VALUES (209350378, '刘敏', 'ojrjcvy', '计算机网络技术', '2班', '软件学院', '男', '18147296526', 0, '/vitae/0023', 0);
-INSERT INTO `student` VALUES (209350382, '万刚', 'tfyanj', '护理', '4班', '机电学院', '女', '19875556454', 0, '/vitae/0024', 0);
-INSERT INTO `student` VALUES (209350391, '余强', 'onkkywpdumkef', '计算机网络技术', '2班', '经贸学院', '男', '19832719044', 0, '/vitae/0025', 0);
-INSERT INTO `student` VALUES (209350392, '邹强', 'ycdvdfkffjoertwchink', '护理', '2班', '软件学院', '女', '18626876647', 0, '/vitae/0026', 0);
-INSERT INTO `student` VALUES (209350398, '尹秀英', 'vdzevf', '计算机网络技术', '2班', '经贸学院', '女', '19892153516', 0, '/vitae/0027', 0);
+INSERT INTO `student` VALUES (209350301, '方娜', '123456', '计算机网络技术', '12班', '护士学院', '女', '18131642936', 0, '1669995011198cat2.png', 2);
+INSERT INTO `student` VALUES (209350305, '邵平', 'vumllrfsduhi', '计算机应用技术', '2班', '软件学院', '女', '13483775641', 0, '1669988580930cat2.png', 0);
+INSERT INTO `student` VALUES (209350308, '龚静', 'atzotmcvjgepj', '自动化', '4班', '经贸学院', '女', '13224058835', 0, NULL, 0);
+INSERT INTO `student` VALUES (209350312, '阎洋', 'guwdjxqeg', '护理', '5班', '机电学院', '男', '18126179283', 0, NULL, 0);
+INSERT INTO `student` VALUES (209350318, '余敏', 'gldddfrtwhc', '软件工程', '5班', '护士学院', '女', '18116517665', 0, NULL, 0);
+INSERT INTO `student` VALUES (209350319, '金丽', 'vzfeonn', '自动化', '3班', '机电学院', '男', '18637827549', 0, NULL, 0);
+INSERT INTO `student` VALUES (209350321, '秦娟', 'dyqctjeedblmcuvau', '电子商务', '4班', '计算机学院', '女', '18187247411', 0, NULL, 0);
+INSERT INTO `student` VALUES (209350322, '陈一', '123456', '计算机科学与技术', '3班', '计算机学院', '男', '17345598426', 0, NULL, 0);
+INSERT INTO `student` VALUES (209350323, '黄娟', 'wijipqinyrl', '机械工程', '2班', '软件学院', '女', '19813465278', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350329, '胡超', 'ivyesemmyffdvoegwhs', '电子商务', '3班', '软件学院', '男', '18691502697', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350340, '万洋', 'dlpliiirb', '机械工程', '1班', '计算机学院', '女', '18100641536', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350341, '赵艳', 'ojpqlgogqkbllhxfovb', '计算机应用技术', '2班', '经贸学院', '女', '18684631274', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350343, '叶静', 'mxkfjodq', '机械工程', '6班', '软件学院', '男', '18158179141', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350346, '程洋', 'vxcsobwvym', '护理', '5班', '护士学院', '男', '18132487635', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350350, '曹强', 'eqkfaalfxupobojpdfgm', '机械工程', '2班', '机电学院', '男', '18127664465', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350357, '廖静', 'odyeiwtvrsybyplthci', '机械工程', '4班', '经贸学院', '男', '13564940943', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350360, '史敏', 'gluagcydwajolgtd', '计算机应用技术', '2班', '软件学院', '女', '18178665003', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350362, '郑桂英', 'vmxulcbntlczmmzawx', '护理', '5班', '机电学院', '男', '19805445818', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350365, '金霞', 'mdnwtbnmmiofejezbeh', '自动化', '2班', '经贸学院', '女', '18132548254', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350366, '于超', 'pamvwd', '机械工程', '5班', '经贸学院', '女', '18683988915', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350372, '赖秀兰', 'wkwhiirivktiwssepxzi', '计算机网络技术', '5班', '机电学院', '女', '13441873455', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350376, '方娜', 'lbudxldae', '计算机网络技术', '5班', '软件学院', '女', '18141576221', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350378, '刘敏', 'ojrjcvy', '计算机网络技术', '2班', '软件学院', '男', '18147296526', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350382, '万刚', 'tfyanj', '护理', '4班', '机电学院', '女', '19875556454', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350391, '余强', 'onkkywpdumkef', '计算机网络技术', '2班', '经贸学院', '男', '19832719044', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350392, '邹强', 'ycdvdfkffjoertwchink', '护理', '2班', '软件学院', '女', '18626876647', 0, NULL, NULL);
+INSERT INTO `student` VALUES (209350398, '尹秀英', 'vdzevf', '计算机网络技术', '2班', '经贸学院', '女', '19892153516', 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for teacher
