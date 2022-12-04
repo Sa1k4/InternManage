@@ -85,6 +85,18 @@ public class ProfessionController {
         return professionService.selectPfToPsNotPsProId(stu_id, name, pageNum, pageSize);
     }
 
+    //申请中的岗位
+    @GetMapping("selectPsOf0")
+    public R selectPsOf0(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return professionService.selectPsOf0(stu_id, name, pageNum, pageSize);
+    }
+
+    //历史岗位
+    @GetMapping("selectPsOfPast")
+    public R selectPsOfPast(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return professionService.selectPsOfPast(stu_id, name, pageNum, pageSize);
+    }
+
     // NOTE: 在stu_pro表里面查出未通过的岗位(分页、根据岗位名称模糊搜索)
     @GetMapping("selectPsOfNo")
     public R selectPsOfNo(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
@@ -93,8 +105,8 @@ public class ProfessionController {
 
     // NOTE: 在stu_pro表里面查出通过的岗位(分页、根据岗位名称模糊搜索)
     @GetMapping("selectPsOfYes")
-    public R selectPsOfYes(@RequestParam int stu_id, @RequestParam String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return professionService.selectPsOfYes(stu_id, name, pageNum, pageSize);
+    public R selectPsOfYes(@RequestParam int stu_id) {
+        return professionService.selectPsOfYes(stu_id);
     }
 
 }

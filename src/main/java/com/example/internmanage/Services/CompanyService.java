@@ -2,6 +2,7 @@ package com.example.internmanage.Services;
 
 import com.example.internmanage.Entity.Company;
 import com.example.internmanage.Entity.ProStu;
+import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Mapper.CompanyMapper;
 import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,14 +82,60 @@ public class CompanyService {
         return R.success().data(res);
     }
 
-    public R applyOfStudentYes(int id, int stu_id) {
-        if (companyMapper.applyOfStudentYes(id) >= 0 && companyMapper.deleteAllApplyOfStudent(stu_id) >= 0) {
+    public R selectApply(Integer pro_id,String username,Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = companyMapper.selectApplyTotal(pro_id,username);
+        List<Student> result = companyMapper.selectApply(pro_id,username,pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R selectApply1(Integer pro_id,String username,Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = companyMapper.selectApplyTotal1(pro_id,username);
+        List<Student> result = companyMapper.selectApply1(pro_id,username,pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R selectApply2(Integer pro_id,String username,Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = companyMapper.selectApplyTotal2(pro_id,username);
+        List<Student> result = companyMapper.selectApply2(pro_id,username,pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R selectApply3(Integer pro_id,String username,Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = companyMapper.selectApplyTotal3(pro_id,username);
+        List<Student> result = companyMapper.selectApply3(pro_id,username,pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R applyOfStudentYes(int stu_id, int pro_id) {
+        if (companyMapper.applyOfStudentYes(stu_id, pro_id) >= 0 && companyMapper.deleteAllApplyOfStudent(stu_id) >= 0) {
             return R.success();
         } else return R.failed();
     }
 
-    public R applyOfStudentNo(int id) {
-        if (companyMapper.applyOfStudentNo(id) >= 0) {
+    public R applyOfStudentNo(int stu_id, int pro_id) {
+        if (companyMapper.applyOfStudentNo(stu_id, pro_id) >= 0) {
+            return R.success();
+        } else return R.failed();
+    }
+
+    public R applyOfStudent(int stu_id, int pro_id) {
+        if (companyMapper.applyOfStudent(stu_id, pro_id) >= 0) {
             return R.success();
         } else return R.failed();
     }

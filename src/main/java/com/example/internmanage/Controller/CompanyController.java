@@ -62,21 +62,51 @@ public class CompanyController {
         return companyService.selectAllOfProStu(pageNum, pageSize);
     }
 
+    //NOTE: 显示所有该岗位下的学生申请
+    @GetMapping("/selectApply")
+    public R selectApply(@RequestParam Integer pro_id,@RequestParam String username,@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return companyService.selectApply(pro_id,username,pageNum,pageSize);
+    }
+
+    //NOTE: 显示所有该岗位下的学生
+    @GetMapping("/selectApply1")
+    public R selectApply1(@RequestParam Integer pro_id,@RequestParam String username,@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return companyService.selectApply1(pro_id,username,pageNum,pageSize);
+    }
+
+    //NOTE: 显示所有该岗位下不通过的学生
+    @GetMapping("/selectApply2")
+    public R selectApply2(@RequestParam Integer pro_id,@RequestParam String username,@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return companyService.selectApply2(pro_id,username,pageNum,pageSize);
+    }
+
+    //NOTE: 显示所有该岗位下离职的学生
+    @GetMapping("/selectApply3")
+    public R selectApply3(@RequestParam Integer pro_id,@RequestParam String username,@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return companyService.selectApply3(pro_id,username,pageNum,pageSize);
+    }
+
     // NOTE: 同意学生的申请
     @GetMapping("/applyOfStudentYes")
-    public R applyOfStudentYes(@RequestParam int id, @RequestParam int stu_id) {
-        return companyService.applyOfStudentYes(id, stu_id);
+    public R applyOfStudentYes(@RequestParam int stu_id, @RequestParam int pro_id) {
+        return companyService.applyOfStudentYes(stu_id, pro_id);
     }
 
     // NOTE: 拒绝学生的申请
     @GetMapping("applyOfStudentNo")
-    public R applyOfStudentNo(@RequestParam int id) {
-        return companyService.applyOfStudentNo(id);
+    public R applyOfStudentNo(@RequestParam int stu_id, @RequestParam int pro_id) {
+        return companyService.applyOfStudentNo(stu_id, pro_id);
+    }
+
+    // NOTE: 重新审核
+    @GetMapping("applyOfStudent")
+    public R applyOfStudent(@RequestParam int stu_id, @RequestParam int pro_id) {
+        return companyService.applyOfStudent(stu_id, pro_id);
     }
 
     // NOTE: 不允许重复申请(检查数据库是否有相同数据)
     @GetMapping("checkApplyOfStudent")
-    public R checkApplyOfStudent(int stu_id, int pro_id) {
+    public R checkApplyOfStudent(@RequestParam int stu_id,@RequestParam int pro_id) {
         return companyService.checkApplyOfStudent(stu_id, pro_id);
     }
 
