@@ -88,7 +88,7 @@ public class StudentService {
 
     public R stuLeaveS(int stu_id,int pageNum, int pageSize) {
         pageNum = (pageNum - 1) * pageSize;
-        Integer total = studentMapper.stuLeaveS(stu_id);
+        Integer total = studentMapper.stuLeaveSC(stu_id);
         List<StuLPRW> result = studentMapper.stuLeaveS(stu_id,pageNum, pageSize);
         Map<String, Object> res = new HashMap<>();
         res.put("data", result);
@@ -104,7 +104,7 @@ public class StudentService {
 
     public R stuLeave(int stu_id,int apply,int pageNum, int pageSize) {
         pageNum = (pageNum - 1) * pageSize;
-        Integer total = studentMapper.stuLeave(stu_id,apply);
+        Integer total = studentMapper.stuLeaveC(stu_id,apply);
         List<StuLPRW> result = studentMapper.stuLeave(stu_id,apply,pageNum, pageSize);
         Map<String, Object> res = new HashMap<>();
         res.put("data", result);

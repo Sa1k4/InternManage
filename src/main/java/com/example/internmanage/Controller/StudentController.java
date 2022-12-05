@@ -83,7 +83,7 @@ public class StudentController {
         return studentService.checkPro(stu_id);
     }
 
-    //NOTE: 学生实习请假申请(学生端)
+    //NOTE: 学生实习请假申请查看(学生端)
     @GetMapping("stuLeaveS")
     public R stuLeaveS(@RequestParam int stu_id,
                       @RequestParam int pageNum,
