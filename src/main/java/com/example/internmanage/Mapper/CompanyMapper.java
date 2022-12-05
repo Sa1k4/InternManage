@@ -2,6 +2,7 @@ package com.example.internmanage.Mapper;
 
 import com.example.internmanage.Entity.Company;
 import com.example.internmanage.Entity.ProStu;
+import com.example.internmanage.Entity.Student;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -56,24 +57,59 @@ public interface CompanyMapper {
     @Select("select count(*) from pro_stu where del = 0")
     Integer selectAllOfProStuTotal();
 
+    //查看某个岗位所有申请
+    @Select("select * from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 0) and del =0 and username like concat('%',#{username},'%') limit #{pageNum},#{pageSize}")
+    List<Student> selectApply(Integer pro_id,String username,Integer pageNum, Integer pageSize);
+
+    @Select("select count(*) from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 0) and del =0 and username like concat('%',#{username},'%')")
+    Integer selectApplyTotal(Integer pro_id,String username);
+
+    //1
+    @Select("select * from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 1 and del = 0) and del =0 and username like concat('%',#{username},'%') limit #{pageNum},#{pageSize}")
+    List<Student> selectApply1(Integer pro_id,String username,Integer pageNum, Integer pageSize);
+
+    @Select("select count(*) from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 1 and del = 0) and del =0 and username like concat('%',#{username},'%')")
+    Integer selectApplyTotal1(Integer pro_id,String username);
+
+    //2
+    @Select("select * from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 2) and del =0 and username like concat('%',#{username},'%') limit #{pageNum},#{pageSize}")
+    List<Student> selectApply2(Integer pro_id,String username,Integer pageNum, Integer pageSize);
+
+    @Select("select count(*) from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 2) and del =0 and username like concat('%',#{username},'%')")
+    Integer selectApplyTotal2(Integer pro_id,String username);
+
+    //3
+    @Select("select * from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 1 and del = 1) and del =0 and username like concat('%',#{username},'%') limit #{pageNum},#{pageSize}")
+    List<Student> selectApply3(Integer pro_id,String username,Integer pageNum, Integer pageSize);
+
+    @Select("select count(*) from student where stu_id in (select stu_id from pro_stu where pro_id = #{pro_id} and apply_com = 1 and del = 1) and del =0 and username like concat('%',#{username},'%')")
+    Integer selectApplyTotal3(Integer pro_id,String username);
+
     /**
      * 同意学生的申请
      *
-     * @param id pro_stu表的id(申请记录的id)
+     * @param stu_id 学生id
+     * @param pro_id 岗位id
      * @return 大于等于0 修改成功
      */
-    @Update("update pro_stu set apply_com = 1 where id = #{id}")
-    int applyOfStudentYes(int id);
+    @Update("update pro_stu set apply_com = 1 where stu_id = #{stu_id} and pro_id = #{pro_id}")
+    int applyOfStudentYes(int stu_id,int pro_id);
 
     /**
      * 拒绝学生的申请
      *
-     * @param id pro_stu表的id(申请记录的id)
+     * @param stu_id 学生id
+     * @param pro_id 岗位id
      * @return 大于等于0 修改成功
      */
-    @Update("update pro_stu set apply_com = 1 where id = #{id}")
-    int applyOfStudentNo(int id);
+    @Update("update pro_stu set apply_com = 2 where stu_id = #{stu_id} and pro_id = #{pro_id}")
+    int applyOfStudentNo(int stu_id,int pro_id);
 
+    @Update("update pro_stu set apply_com = 0 where stu_id = #{stu_id} and pro_id = #{pro_id}")
+    int applyOfStudent(int stu_id,int pro_id);
+
+    @Update("update pro_stu set del = 1 where stu_id = #{stu_id} and pro_id = #{pro_id}")
+    int applyOfStudentQuit(int stu_id,int pro_id);
     /**
      * 不允许重复申请(检查数据库是否有相同数据)
      *
@@ -85,12 +121,12 @@ public interface CompanyMapper {
     int checkApplyOfStudent(int stu_id, int pro_id);
 
     /**
-     * 在同意的情况下同时删除其学生的其他申请
+     * 在同意的情况下同时删除此学生的其他申请
      *
      * @param stu_id 学生id
      * @return 大于等于0 删除成功
      */
-    @Delete("delete from pro_stu where stu_id = #{stu_id} and del = 0 and apply_com != 1")
+    @Delete("delete from pro_stu where stu_id = #{stu_id} and del = 0 and apply_com = 0")
     int deleteAllApplyOfStudent(int stu_id);
 
 }

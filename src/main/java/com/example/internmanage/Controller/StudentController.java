@@ -1,5 +1,6 @@
 package com.example.internmanage.Controller;
 
+import com.example.internmanage.Entity.StuLPRW;
 import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Services.StudentService;
 import com.example.internmanage.Utils.R;
@@ -81,4 +82,35 @@ public class StudentController {
     public R studentCheckPro(@RequestParam int stu_id) {
         return studentService.checkPro(stu_id);
     }
+
+    //NOTE: 学生实习请假申请(学生端)
+    @GetMapping("stuLeaveS")
+    public R stuLeaveS(@RequestParam int stu_id,
+                      @RequestParam int pageNum,
+                      @RequestParam int pageSize) {
+        return studentService.stuLeaveS(stu_id,pageNum,pageSize);
+    }
+
+    //NOTE: 学生实习请假申请(学生端)
+    @PostMapping("stuLeaveI")
+    public R stuLeaveI(@RequestBody StuLPRW stuLPRW) {
+        return studentService.stuLeaveI(stuLPRW);
+    }
+
+    //NOTE: 学生实习请假申请
+    @GetMapping("stuLeave")
+    public R stuLeave(@RequestParam int stu_id,
+                      @RequestParam int apply,
+                      @RequestParam int pageNum,
+                      @RequestParam int pageSize) {
+        return studentService.stuLeave(stu_id,apply,pageNum,pageSize);
+    }
+
+    //NOTE: 审核申请
+    @GetMapping("updateLeave")
+    public R updateLeave(@RequestParam int apply,
+                         @RequestParam int id){
+        return studentService.updateLeave(apply, id);
+    }
+
 }

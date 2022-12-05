@@ -1,5 +1,6 @@
 package com.example.internmanage.Mapper;
 
+import com.example.internmanage.Entity.StuLPRW;
 import com.example.internmanage.Entity.Student;
 import org.apache.ibatis.annotations.*;
 
@@ -57,5 +58,19 @@ public interface StudentMapper {
     @Select("select count(*) from pro_stu where apply_com = 1 and del = 0")
     int checkPro(int stu_id);
 
+    @Select("select * from stu_leave where stu_id = #{stu_id} and apply = #{apply} limit #{pageNum},#{pageSize}")
+    List<StuLPRW> stuLeave(int stu_id,int apply,int pageNum,int pageSize);
+    @Select("select count(*) from stu_leave where stu_id = #{stu_id} and apply = #{apply}")
+    Integer stuLeave(int stu_id,int apply);
 
+    @Select("select * from stu_leave where stu_id = #{stu_id} limit #{pageNum},#{pageSize}")
+    List<StuLPRW> stuLeaveS(int stu_id,int pageNum,int pageSize);
+    @Select("select count(*) from stu_leave where stu_id = #{stu_id}")
+    Integer stuLeaveS(int stu_id);
+
+    @Insert("insert into stu_leave(stu_id, content,start_time,end_time) VALUES (#{stu_id},#{content},#{start_time},#{end_time} )")
+    int stuLeaveI(StuLPRW stuLPRW);
+
+    @Update("update stu_leave set apply = #{apply}, where id = #{id}")
+    int updateLeave(int apply,int id);
 }

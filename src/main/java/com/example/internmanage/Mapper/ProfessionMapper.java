@@ -143,7 +143,7 @@ public interface ProfessionMapper {
      * @param pageSize 页大小
      * @return 岗位信息
      */
-    @Select("SELECT * FROM profession pf left join pro_stu ps on pf.id = ps.pro_id where pf.id not in (select pro_id from pro_stu where stu_id = #{stu_id} and ps.apply_com = 1 and pf.del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    @Select("SELECT * FROM profession where id not in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 or apply_com = 0 and del = 0) and name like concat('%',#{name},'%') and status = 1 and del = 0 limit #{pageNum},#{pageSize}")
     List<Profession> selectPfToPsNotPsProId(int stu_id, String name, Integer pageNum, Integer pageSize);
 
     /**
@@ -153,8 +153,22 @@ public interface ProfessionMapper {
      * @param name   岗位名称
      * @return 总记录数
      */
-    @Select("SELECT count(*) FROM profession pf left join pro_stu ps on pf.id = ps.pro_id where pf.id not in (select pro_id from pro_stu where stu_id = #{stu_id} and ps.apply_com = 1 and pf.del = 0) and name like concat('%',#{name},'%')")
+    @Select("SELECT count(*) FROM profession where id not in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 or apply_com = 0 and del = 0) and name like concat('%',#{name},'%') and status = 1 and del = 0")
     Integer selectPfToPsNotPsProIdTotal(int stu_id, String name);
+
+    //申请中的岗位
+    @Select("SELECT * FROM profession where id in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 0 and del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    List<Profession> selectPsOf0(int stu_id, String name, Integer pageNum, Integer pageSize);
+
+    @Select("SELECT count(*) FROM profession where id in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 0 and del = 0) and name like concat('%',#{name},'%')")
+    Integer selectPsOf0Total(int stu_id, String name);
+
+    //历史岗位
+    @Select("SELECT * FROM profession where id in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 1) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    List<Profession> selectPsOfPast(int stu_id, String name, Integer pageNum, Integer pageSize);
+
+    @Select("SELECT count(*) FROM profession where id in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 1) and name like concat('%',#{name},'%')")
+    Integer selectPsOfPastTotal(int stu_id, String name);
 
     /**
      * 在stu_pro表里面查出未通过的岗位(分页、根据岗位名称模糊搜索)
@@ -165,7 +179,7 @@ public interface ProfessionMapper {
      * @param pageSize 页大小
      * @return 未通过的岗位
      */
-    @Select("SELECT * FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 2 and del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
+    @Select("SELECT * FROM profession where id in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 2 and del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
     List<Profession> selectPsOfNo(int stu_id, String name, Integer pageNum, Integer pageSize);
 
     /**
@@ -175,28 +189,24 @@ public interface ProfessionMapper {
      * @param name 岗位名称
      * @return 总记录数
      */
-    @Select("SELECT count(*) FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 2 and del = 0) and name like concat('%',#{name},'%')")
+    @Select("SELECT count(*) FROM profession where id in (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 2 and del = 0) and name like concat('%',#{name},'%')")
     Integer selectPsOfNoTotal(int stu_id, String name);
 
     /**
      * 在stu_pro表里面查出通过的岗位(分页、根据岗位名称模糊搜索)
      *
      * @param stu_id 学生id
-     * @param name 岗位名称
-     * @param pageNum 当前页
-     * @param pageSize 页大小
      * @return 通过的岗位
      */
-    @Select("SELECT * FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 0) and name like concat('%',#{name},'%') limit #{pageNum},#{pageSize}")
-    List<Profession> selectPsOfYes(int stu_id, String name, Integer pageNum, Integer pageSize);
+    @Select("SELECT * FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 0)")
+    Profession selectPsOfYes(int stu_id);
 
     /**
      * 在stu_pro表里面查出通过的岗位(分页、根据岗位名称模糊搜索) 的 总记录数
      *
      * @param stu_id 学生id
-     * @param name 岗位名称
      * @return 总记录数
      */
-    @Select("SELECT count(*) FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 0) and name like concat('%',#{name},'%')")
-    Integer selectPsOfYesTotal(int stu_id, String name);
+    @Select("SELECT count(*) FROM profession where id = (select pro_id from pro_stu where stu_id = #{stu_id} and apply_com = 1 and del = 0)")
+    Integer selectPsOfYesTotal(int stu_id);
 }

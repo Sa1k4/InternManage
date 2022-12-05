@@ -147,6 +147,26 @@ public class ProfessionService {
         return R.success().data(res);
     }
 
+    public R selectPsOf0(int stu_id, String name, Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectPsOf0Total(stu_id, name);
+        List<Profession> result = professionMapper.selectPsOf0(stu_id, name, pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R selectPsOfPast(int stu_id, String name, Integer pageNum, Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = professionMapper.selectPsOfPastTotal(stu_id, name);
+        List<Profession> result = professionMapper.selectPsOfPast(stu_id, name, pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
     public R selectPsOfNo(int stu_id, String name, Integer pageNum, Integer pageSize) {
         pageNum = (pageNum - 1) * pageSize;
         Integer total = professionMapper.selectPsOfNoTotal(stu_id, name);
@@ -157,12 +177,9 @@ public class ProfessionService {
         return R.success().data(res);
     }
 
-    public R selectPsOfYes(int stu_id, String name, Integer pageNum, Integer pageSize) {
-        pageNum = (pageNum - 1) * pageSize;
-        Integer total = professionMapper.selectPsOfYesTotal(stu_id, name);
-        List<Profession> result = professionMapper.selectPsOfYes(stu_id, name, pageNum, pageSize);
+    public R selectPsOfYes(int stu_id) {
+        Profession result = professionMapper.selectPsOfYes(stu_id);
         HashMap<String, Object> res = new HashMap<>();
-        res.put("total", total);
         res.put("data", result);
         return R.success().data(res);
     }

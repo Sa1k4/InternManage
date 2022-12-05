@@ -1,5 +1,6 @@
 package com.example.internmanage.Services;
 
+import com.example.internmanage.Entity.StuLPRW;
 import com.example.internmanage.Entity.Student;
 import com.example.internmanage.Mapper.StudentMapper;
 import com.example.internmanage.Utils.R;
@@ -83,5 +84,37 @@ public class StudentService {
 
     public R checkPro(int stu_id) {
         return R.success().data("checkPro", studentMapper.checkPro(stu_id));
+    }
+
+    public R stuLeaveS(int stu_id,int pageNum, int pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = studentMapper.stuLeaveS(stu_id);
+        List<StuLPRW> result = studentMapper.stuLeaveS(stu_id,pageNum, pageSize);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", result);
+        res.put("total", total);
+        return R.success().data(res);
+    }
+
+    public R stuLeaveI(StuLPRW stuLPRW) {
+        if (studentMapper.stuLeaveI(stuLPRW) != 0)
+            return R.success();
+        else return R.failed();
+    }
+
+    public R stuLeave(int stu_id,int apply,int pageNum, int pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = studentMapper.stuLeave(stu_id,apply);
+        List<StuLPRW> result = studentMapper.stuLeave(stu_id,apply,pageNum, pageSize);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", result);
+        res.put("total", total);
+        return R.success().data(res);
+    }
+
+    public R updateLeave(int apply,int id) {
+        if (studentMapper.updateLeave(apply,id) != 0)
+            return R.success();
+        else return R.failed();
     }
 }

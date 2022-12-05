@@ -37,16 +37,22 @@ public interface EvaluateMapper {
     @Insert("insert into evaluate_c (stu_id,com_id,eva_date,eva_content) values (#{stu_id},#{com_id},#{eva_date},#{eva_content})")
     int insertEvaC(Evaluate evaluate);
 
+    @Select("select * from evaluate_c where stu_id = #{stu_id} and com_id = #{com_id}")
+    Evaluate selectEvaC(Evaluate evaluate);
+
+    @Select("select * from evaluate_t where stu_id = #{stu_id} and t_id = #{t_id}")
+    Evaluate selectEvaT(Evaluate evaluate);
+
     @Update("update evaluate_t set del = 1 where eva_id = #{eva_id}")
     int deleteEvaT(int eva_id);
 
     @Update("update evaluate_c set del = 1 where eva_id = #{eva_id}")
     int deleteEvaC(int eva_id);
 
-    @Update("update evaluate_t set eva_date = #{eva_date} , eva_content = #{eva_content} where eva_id = #{eva_id}")
-    int updateEvaT(String eva_date,String eva_content,int eva_id);
+    @Update("update evaluate_t set eva_date = #{eva_date} , eva_content = #{eva_content} where stu_id = #{stu_id} and t_id = #{com_id}")
+    int updateEvaT(Evaluate evaluate);
 
-    @Update("update evaluate_c set eva_date = #{eva_date} , eva_content = #{eva_content} where eva_id = #{eva_id}")
-    int updateEvaC(String eva_date,String eva_content,int eva_id);
+    @Update("update evaluate_c set eva_date = #{eva_date} , eva_content = #{eva_content} where stu_id = #{stu_id} and com_id = #{com_id}")
+    int updateEvaC(Evaluate evaluate);
 
 }
