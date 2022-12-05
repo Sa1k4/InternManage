@@ -1,6 +1,7 @@
 package com.example.internmanage.Controller;
 
 import com.example.internmanage.Entity.Company;
+import com.example.internmanage.Entity.Evaluate;
 import com.example.internmanage.Services.CompanyService;
 import com.example.internmanage.Utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +103,12 @@ public class CompanyController {
     @GetMapping("applyOfStudent")
     public R applyOfStudent(@RequestParam int stu_id, @RequestParam int pro_id) {
         return companyService.applyOfStudent(stu_id, pro_id);
+    }
+
+    // NOTE: 学生离职
+    @GetMapping("applyOfStudentQuit")
+    public R applyOfStudentQuit(@RequestParam int stu_id, @RequestParam int pro_id) {
+        return companyService.applyOfStudentQuit(stu_id, pro_id);
     }
 
     // NOTE: 不允许重复申请(检查数据库是否有相同数据)

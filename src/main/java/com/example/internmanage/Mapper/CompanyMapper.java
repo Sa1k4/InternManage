@@ -107,6 +107,9 @@ public interface CompanyMapper {
 
     @Update("update pro_stu set apply_com = 0 where stu_id = #{stu_id} and pro_id = #{pro_id}")
     int applyOfStudent(int stu_id,int pro_id);
+
+    @Update("update pro_stu set del = 1 where stu_id = #{stu_id} and pro_id = #{pro_id}")
+    int applyOfStudentQuit(int stu_id,int pro_id);
     /**
      * 不允许重复申请(检查数据库是否有相同数据)
      *

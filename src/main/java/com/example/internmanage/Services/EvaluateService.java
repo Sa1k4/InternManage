@@ -67,6 +67,13 @@ public class EvaluateService {
         else return R.failed();
     }
 
+    public R selectEvaC(Evaluate evaluate){
+        return R.success().data("data",evaluateMapper.selectEvaC(evaluate));
+    }
+    public R selectEvaT(Evaluate evaluate){
+        return R.success().data("data",evaluateMapper.selectEvaT(evaluate));
+    }
+
     public R deleteEvaT(int eva_id){
         if (evaluateMapper.deleteEvaT(eva_id)!=0)
         return R.success();
@@ -99,14 +106,14 @@ public class EvaluateService {
         else return R.failed();
     }
 
-    public R updateEvaT(String eva_date,String eva_content,int eva_id){
-        if (evaluateMapper.updateEvaT(eva_date,eva_content,eva_id)!=0)
+    public R updateEvaT(Evaluate evaluate){
+        if (evaluateMapper.updateEvaT(evaluate)!=0)
         return R.success();
         else return R.failed();
     }
 
-    public R updateEvaC(String eva_date,String eva_content,int eva_id){
-        if (evaluateMapper.updateEvaC(eva_date,eva_content,eva_id)!=0)
+    public R updateEvaC(Evaluate evaluate){
+        if (evaluateMapper.updateEvaC(evaluate)!=0)
         return R.success();
         else return R.failed();
     }

@@ -81,6 +81,16 @@ public class EvaluateController {
         return evaluateService.insertEvaC(evaluate);
     }
 
+    @RequestMapping("selectEvaC")
+    public R selectEvaC(@RequestBody Evaluate evaluate){
+        return evaluateService.selectEvaC(evaluate);
+    }
+
+    @RequestMapping("selectEvaT")
+    public R selectEvaT(@RequestBody Evaluate evaluate){
+        return evaluateService.selectEvaT(evaluate);
+    }
+
     //删除老师对学生评价
     @RequestMapping("deleteEvaT{id}")
     public R deleteEvaT(@PathVariable int id){
@@ -105,20 +115,14 @@ public class EvaluateController {
 
     //修改老师对学生评价
     @RequestMapping("updateEvaT")
-    public R updateEvaT(HttpServletRequest request){
-        String eva_date = request.getParameter("eva_date");
-        String eva_content = request.getParameter("eva_content");
-        int eva_id = Integer.parseInt(request.getParameter("eva_id"));
-        return evaluateService.updateEvaT(eva_date,eva_content,eva_id);
+    public R updateEvaT(@RequestBody Evaluate evaluate){
+        return evaluateService.updateEvaT(evaluate);
     }
 
     //修改企业对学生评价
     @RequestMapping("updateEvaC")
-    public R updateEvaC(HttpServletRequest request){
-        String eva_date = request.getParameter("eva_date");
-        String eva_content = request.getParameter("eva_content");
-        int eva_id = Integer.parseInt(request.getParameter("eva_id"));
-        return evaluateService.updateEvaC(eva_date,eva_content,eva_id);
+    public R updateEvaC(@RequestBody Evaluate evaluate){
+        return evaluateService.updateEvaC(evaluate);
     }
 
 }

@@ -140,6 +140,12 @@ public class CompanyService {
         } else return R.failed();
     }
 
+    public R applyOfStudentQuit(int stu_id, int pro_id) {
+        if (companyMapper.applyOfStudentQuit(stu_id, pro_id) >= 0) {
+            return R.success();
+        } else return R.failed();
+    }
+
     public R checkApplyOfStudent(int stu_id, int pro_id) {
         HashMap<String, Object> res = new HashMap<>();
         if (companyMapper.checkApplyOfStudent(stu_id, pro_id) == 1) {
