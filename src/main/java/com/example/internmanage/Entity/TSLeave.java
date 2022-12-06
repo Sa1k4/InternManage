@@ -1,6 +1,7 @@
 package com.example.internmanage.Entity;
 
 public class TSLeave {
+    private int id;
     private int stu_id;
     private String username;
     private String specialty;
@@ -17,6 +18,14 @@ public class TSLeave {
     private String introduce;
     private String company_name;
     private String company_legal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getStu_id() {
         return stu_id;

@@ -121,8 +121,19 @@ public class TeacherController {
     }
 
     @GetMapping("selectTSLeave")
-    public R selectTSLeave(int t_id, String username, int apply, Integer pageNum, Integer pageSize) {
-        return teacherService.selectTSLeave(t_id, username, apply, pageNum, pageSize);
+    public R selectTSLeave(int t_id, String student_name, int apply, Integer pageNum, Integer pageSize) {
+        return teacherService.selectTSLeave(t_id, student_name, apply, pageNum, pageSize);
     }
 
+    //NOTE: 老师同意请假申请
+    @GetMapping("/stuLeave21{id}")
+    public R stuLeave21(@PathVariable int id) {
+        return teacherService.stuLeave21(id);
+    }
+
+    //NOTE: 老师拒绝请假申请
+    @GetMapping("/stuLeave22{id}")
+    public R stuLeave22(@PathVariable int id) {
+        return teacherService.stuLeave22(id);
+    }
 }

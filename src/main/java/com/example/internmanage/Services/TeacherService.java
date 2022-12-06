@@ -72,6 +72,18 @@ public class TeacherService {
         } else return R.failed();
     }
 
+    public R stuLeave21(int id) {
+        if (teacherMapper.stuLeave21(id) != 0) {
+            return R.success();
+        } else return R.failed();
+    }
+
+    public R stuLeave22(int id) {
+        if (teacherMapper.stuLeave22(id) != 0) {
+            return R.success();
+        } else return R.failed();
+    }
+
     public R selectApply(int apply, int t_id, Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
         pageNum = (pageNum - 1) * pageSize;
         Integer total = teacherMapper.selectApplyTotal(apply, t_id, student_name, student_class, student_id);
