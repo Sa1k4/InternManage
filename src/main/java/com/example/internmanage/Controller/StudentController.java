@@ -91,10 +91,52 @@ public class StudentController {
         return studentService.stuLeaveS(stu_id,pageNum,pageSize);
     }
 
+    //NOTE: 学生周报
+    @GetMapping("stuWeekS")
+    public R stuWeekS(@RequestParam int stu_id,
+                       @RequestParam int pageNum,
+                       @RequestParam int pageSize) {
+        return studentService.stuWeekS(stu_id,pageNum,pageSize);
+    }
+
+    //NOTE: 学生计划
+    @GetMapping("stuPlanS")
+    public R stuPlanS(@RequestParam int stu_id,
+                       @RequestParam int pageNum,
+                       @RequestParam int pageSize) {
+        return studentService.stuPlanS(stu_id,pageNum,pageSize);
+    }
+
+    //NOTE: 学生报告
+    @GetMapping("stuRepoS")
+    public R stuRepoS(@RequestParam int stu_id,
+                       @RequestParam int pageNum,
+                       @RequestParam int pageSize) {
+        return studentService.stuRepoS(stu_id,pageNum,pageSize);
+    }
+
     //NOTE: 学生实习请假申请(学生端)
     @PostMapping("stuLeaveI")
     public R stuLeaveI(@RequestBody StuLPRW stuLPRW) {
         return studentService.stuLeaveI(stuLPRW);
+    }
+
+    //NOTE: 学生实习周报新增
+    @PostMapping("stuWeek")
+    public R stuWeek(@RequestBody StuLPRW stuLPRW) {
+        return studentService.stuWeek(stuLPRW);
+    }
+
+    //NOTE: 学生实习计划新增
+    @PostMapping("stuPlan")
+    public R stuPlan(@RequestBody StuLPRW stuLPRW) {
+        return studentService.stuPlan(stuLPRW);
+    }
+
+    //NOTE: 学生实习报告新增
+    @PostMapping("stuRepo")
+    public R stuRepo(@RequestBody StuLPRW stuLPRW) {
+        return studentService.stuRepo(stuLPRW);
     }
 
     //NOTE: 学生实习请假申请

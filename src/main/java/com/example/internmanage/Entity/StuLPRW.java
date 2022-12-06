@@ -6,8 +6,9 @@ public class StuLPRW {
     private int id;
     private int stu_id;
     private String content;
-    private Date start_time;
-    private Date end_time;
+    private String start_time;
+    private String end_time;
+    private int apply;
 
     public int getId() {
         return id;
@@ -33,19 +34,27 @@ public class StuLPRW {
         this.content = content;
     }
 
-    public Date getStart_time() {
+    public String getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(Date start_time) {
+    public void setStart_time(String start_time) {
         this.start_time = start_time;
     }
 
-    public Date getEnd_time() {
+    public String getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(Date end_time) {
+    public void setEnd_time(String end_time) {
         this.end_time = end_time;
+    }
+
+    public int getApply() {
+        return apply;
+    }
+
+    public void setApply(int apply) {
+        this.apply = apply;
     }
 }

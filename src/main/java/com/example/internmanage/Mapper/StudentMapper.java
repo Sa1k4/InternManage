@@ -68,8 +68,32 @@ public interface StudentMapper {
     @Select("select count(*) from stu_leave where stu_id = #{stu_id}")
     Integer stuLeaveSC(int stu_id);
 
+    @Select("select * from stu_week where stu_id = #{stu_id} limit #{pageNum},#{pageSize}")
+    List<StuLPRW> stuWeekS(int stu_id,int pageNum,int pageSize);
+    @Select("select count(*) from stu_week where stu_id = #{stu_id}")
+    Integer stuWeekSC(int stu_id);
+
+    @Select("select * from stu_plan where stu_id = #{stu_id} limit #{pageNum},#{pageSize}")
+    List<StuLPRW> stuPlanS(int stu_id,int pageNum,int pageSize);
+    @Select("select count(*) from stu_plan where stu_id = #{stu_id}")
+    Integer stuPlanSC(int stu_id);
+
+    @Select("select * from stu_repo where stu_id = #{stu_id} limit #{pageNum},#{pageSize}")
+    List<StuLPRW> stuRepoS(int stu_id,int pageNum,int pageSize);
+    @Select("select count(*) from stu_repo where stu_id = #{stu_id}")
+    Integer stuRepoSC(int stu_id);
+
     @Insert("insert into stu_leave(stu_id, content,start_time,end_time) VALUES (#{stu_id},#{content},#{start_time},#{end_time} )")
     int stuLeaveI(StuLPRW stuLPRW);
+
+    @Insert("insert into stu_week(stu_id, content,start_time,end_time) VALUES (#{stu_id},#{content},#{start_time},#{end_time} )")
+    int stuWeek(StuLPRW stuLPRW);
+
+    @Insert("insert into stu_plan(stu_id, content,start_time) VALUES (#{stu_id},#{content},#{start_time})")
+    int stuPlan(StuLPRW stuLPRW);
+
+    @Insert("insert into stu_repo(stu_id, content,start_time) VALUES (#{stu_id},#{content},#{start_time})")
+    int stuRepo(StuLPRW stuLPRW);
 
     @Update("update stu_leave set apply = #{apply}, where id = #{id}")
     int updateLeave(int apply,int id);
