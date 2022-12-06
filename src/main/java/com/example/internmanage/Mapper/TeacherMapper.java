@@ -60,10 +60,15 @@ public interface TeacherMapper {
     @Update("update student set apply = 2 where stu_id = #{stu_id}")
     int applyOfYes(int stu_id);
 
-    @Select("select sinle.*,sfc.`name`,sfc.salary,sfc.introduce,sfc.company_name,sfc.company_legal from (select si.stu_id,si.username,si.specialty,si.classname,si.academy,si.sex,si.phone,sl.content,sl.start_time,sl.end_time,sl.apply from (select s.* from stu_t st left join student s on st.stu_id = s.stu_id where t_id = #{t_id}) as si right join stu_leave sl on si.stu_id = sl.stu_id) as sinle left join (select sf.*,cp.company_name,cp.company_legal from (select ps.stu_id,pfs.* from pro_stu ps left join profession pfs on ps.pro_id = pfs.id) as sf left join company cp on sf.com_id = cp.cpmy_id) as sfc on sinle.stu_id = sfc.stu_id where sinle.username like concat('%',#{username},'%') and sinle.apply = #{apply} limit #{pageNum},#{pageSize}")
+    @Select("select sinle.*,sfc.`name`,sfc.salary,sfc.introduce,sfc.company_name,sfc.company_legal from (select si.stu_id,si.username,si.specialty,si.classname,si.academy,si.sex,si.phone,sl.content,sl.start_time,sl.end_time,sl.apply,sl.id from (select s.* from stu_t st left join student s on st.stu_id = s.stu_id where t_id = #{t_id}) as si right join stu_leave sl on si.stu_id = sl.stu_id) as sinle left join (select sf.*,cp.company_name,cp.company_legal from (select ps.stu_id,pfs.* from pro_stu ps left join profession pfs on ps.pro_id = pfs.id) as sf left join company cp on sf.com_id = cp.cpmy_id) as sfc on sinle.stu_id = sfc.stu_id where sinle.username like concat('%',#{username},'%') and sinle.apply = #{apply} limit #{pageNum},#{pageSize}")
     List<TSLeave> selectTSLeave(int t_id,String username,int apply,Integer pageNum,Integer pageSize);
 
     @Select("select count(*) from (select si.stu_id,si.username,si.specialty,si.classname,si.academy,si.sex,si.phone,sl.content,sl.start_time,sl.end_time,sl.apply from (select s.* from stu_t st left join student s on st.stu_id = s.stu_id where t_id = #{t_id}) as si right join stu_leave sl on si.stu_id = sl.stu_id) as sinle left join (select sf.*,cp.company_name,cp.company_legal from (select ps.stu_id,pfs.* from pro_stu ps left join profession pfs on ps.pro_id = pfs.id) as sf left join company cp on sf.com_id = cp.cpmy_id) as sfc on sinle.stu_id = sfc.stu_id where sinle.username like concat('%',#{username},'%') and sinle.apply = #{apply}")
     int selectTSLeaveTotal(int t_id,String username,int apply);
 
+    @Update("update stu_leave set apply = 1 where id = #{id}")
+    int stuLeave21(int id);
+
+    @Update("update stu_leave set apply = 2 where id = #{id}")
+    int stuLeave22(int id);
 }
