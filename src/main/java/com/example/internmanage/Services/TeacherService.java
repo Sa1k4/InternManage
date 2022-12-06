@@ -1,6 +1,7 @@
 package com.example.internmanage.Services;
 
 import com.example.internmanage.Entity.Student;
+import com.example.internmanage.Entity.TSLeave;
 import com.example.internmanage.Entity.Teacher;
 import com.example.internmanage.Mapper.TeacherMapper;
 import com.example.internmanage.Utils.R;
@@ -131,6 +132,16 @@ public class TeacherService {
         if (count == ids.size())
             return R.success();
         else return R.failed();
+    }
+
+    public R selectTSLeave(int t_id,String username,int apply,Integer pageNum,Integer pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = teacherMapper.selectTSLeaveTotal(t_id, username, apply);
+        List<TSLeave> result = teacherMapper.selectTSLeave(t_id, username, apply, pageNum, pageSize);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
     }
 
 }

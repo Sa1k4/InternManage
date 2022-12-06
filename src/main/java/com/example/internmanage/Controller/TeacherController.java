@@ -120,4 +120,9 @@ public class TeacherController {
         return teacherService.deleteStuMultiple(ids,t_id);
     }
 
+    @GetMapping("selectTSLeave")
+    public R selectTSLeave(int t_id, String username, int apply, Integer pageNum, Integer pageSize) {
+        return teacherService.selectTSLeave(t_id, username, apply, pageNum, pageSize);
+    }
+
 }
