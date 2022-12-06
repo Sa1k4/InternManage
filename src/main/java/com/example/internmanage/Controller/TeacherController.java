@@ -71,4 +71,53 @@ public class TeacherController {
     ) {
         return teacherService.selectApply(apply, t_id, pageNum, pageSize, student_name, student_class, student_id);
     }
+
+    //NOTE: 老师查看未添加的学生
+    @GetMapping("findStudentF")
+    public R findStudentF(@RequestParam int t_id,
+                          @RequestParam Integer pageNum,
+                          @RequestParam Integer pageSize,
+                          @RequestParam String student_name,
+                          @RequestParam String student_class,
+                          @RequestParam String student_id
+    ){
+        return teacherService.findStudentF(t_id, pageNum, pageSize, student_name, student_class, student_id);
+    }
+
+    //NOTE: 老师查看添加的学生
+    @GetMapping("findStudent")
+    public R findStudent(@RequestParam int t_id,
+                          @RequestParam Integer pageNum,
+                          @RequestParam Integer pageSize,
+                          @RequestParam String student_name,
+                          @RequestParam String student_class,
+                          @RequestParam String student_id
+    ){
+        return teacherService.findStudent(t_id, pageNum, pageSize, student_name, student_class, student_id);
+    }
+
+    //NOTE: 老师添加学生
+    @GetMapping("addStudent")
+    public R addStudent(@RequestParam Integer stu_id,@RequestParam Integer t_id){return teacherService.addStudent(stu_id,t_id);}
+
+    @PostMapping("addStudentMultiple")
+    public R addStudentMultiple(@RequestBody List<Integer> ids){
+        int length = ids.size();
+        int t_id = ids.get(length-1);
+        ids.remove(length-1);
+        return teacherService.addStudentMultiple(ids,t_id);
+    }
+
+    //NOTE: 老师删除学生
+    @GetMapping("delStudent")
+    public R delStudent(@RequestParam Integer stu_id,@RequestParam Integer t_id){return teacherService.deleteStu(stu_id,t_id);}
+
+    @PostMapping("delStudentMultiple")
+    public R delStudentMultiple(@RequestBody List<Integer> ids){
+        int length = ids.size();
+        int t_id = ids.get(length-1);
+        ids.remove(length-1);
+        return teacherService.deleteStuMultiple(ids,t_id);
+    }
+
 }

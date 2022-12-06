@@ -11,7 +11,7 @@
  Target Server Version : 50556
  File Encoding         : 65001
 
- Date: 05/12/2022 22:22:34
+ Date: 06/12/2022 16:36:34
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS `company`;
 CREATE TABLE `company`  (
   `cpmy_id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `company_legal` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `company_legal` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公司介绍',
   `company_licence` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE `evaluate_t`  (
   `eva_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`eva_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for pro_stu
@@ -95,7 +95,7 @@ CREATE TABLE `profession`  (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '岗位名称',
   `salary` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '薪水',
-  `introduce` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '介绍岗位信息，包括公司联系方式和地址',
+  `introduce` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '介绍岗位信息，包括公司联系方式和地址',
   `apply_num` int(11) NOT NULL DEFAULT 0 COMMENT '人数',
   `com_id` int(11) NOT NULL COMMENT '企业id',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '岗位状态 0未审核，1开启，2关闭，3未通过审核',
@@ -110,12 +110,12 @@ DROP TABLE IF EXISTS `stu_leave`;
 CREATE TABLE `stu_leave`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stu_id` int(12) NOT NULL,
-  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `start_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `end_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `apply` int(255) NULL DEFAULT 0 COMMENT '0申请，1同意，2不同意,默认0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for stu_plan
@@ -125,8 +125,9 @@ CREATE TABLE `stu_plan`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stu_id` int(11) NULL DEFAULT NULL,
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `start_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for stu_repo
@@ -136,19 +137,20 @@ CREATE TABLE `stu_repo`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `stu_id` int(11) NULL DEFAULT NULL,
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `start_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for stu_t
 -- ----------------------------
 DROP TABLE IF EXISTS `stu_t`;
 CREATE TABLE `stu_t`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `stu_id` int(12) NOT NULL,
   `t_id` int(12) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Table structure for stu_week
@@ -161,7 +163,7 @@ CREATE TABLE `stu_week`  (
   `start_time` date NULL DEFAULT NULL,
   `end_time` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for student

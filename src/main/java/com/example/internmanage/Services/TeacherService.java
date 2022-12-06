@@ -80,4 +80,57 @@ public class TeacherService {
         res.put("data", result);
         return R.success().data(res);
     }
+
+    public R findStudentF(int t_id, Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = teacherMapper.findStudentFC(t_id, student_name, student_class, student_id);
+        List<Student> result = teacherMapper.findStudentF(t_id, pageNum, pageSize, student_name, student_class, student_id);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R findStudent(int t_id, Integer pageNum, Integer pageSize, String student_name, String student_class, String student_id) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = teacherMapper.findStudentC(t_id, student_name, student_class, student_id);
+        List<Student> result = teacherMapper.findStudent(t_id, pageNum, pageSize, student_name, student_class, student_id);
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("total", total);
+        res.put("data", result);
+        return R.success().data(res);
+    }
+
+    public R addStudent(int stu_id,int t_id) {
+        if (teacherMapper.addStudent(stu_id, t_id) != 0)
+            return R.success();
+        else return R.failed();
+    }
+
+    public R addStudentMultiple(List<Integer> ids,int t_id) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (teacherMapper.addStudent(ids.get(i),t_id) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
+    }
+
+    public R deleteStu(int stu_id,int t_id) {
+        if (teacherMapper.deleteStu(stu_id, t_id) != 0)
+            return R.success();
+        else return R.failed();
+    }
+
+    public R deleteStuMultiple(List<Integer> ids,int t_id) {
+        int count = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            if (teacherMapper.deleteStu(ids.get(i),t_id) > 0) count++;
+        }
+        if (count == ids.size())
+            return R.success();
+        else return R.failed();
+    }
+
 }

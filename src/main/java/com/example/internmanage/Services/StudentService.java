@@ -96,8 +96,56 @@ public class StudentService {
         return R.success().data(res);
     }
 
+    public R stuWeekS(int stu_id,int pageNum, int pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = studentMapper.stuWeekSC(stu_id);
+        List<StuLPRW> result = studentMapper.stuWeekS(stu_id,pageNum, pageSize);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", result);
+        res.put("total", total);
+        return R.success().data(res);
+    }
+
+    public R stuPlanS(int stu_id,int pageNum, int pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = studentMapper.stuPlanSC(stu_id);
+        List<StuLPRW> result = studentMapper.stuPlanS(stu_id,pageNum, pageSize);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", result);
+        res.put("total", total);
+        return R.success().data(res);
+    }
+
+    public R stuRepoS(int stu_id,int pageNum, int pageSize) {
+        pageNum = (pageNum - 1) * pageSize;
+        Integer total = studentMapper.stuRepoSC(stu_id);
+        List<StuLPRW> result = studentMapper.stuRepoS(stu_id,pageNum, pageSize);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", result);
+        res.put("total", total);
+        return R.success().data(res);
+    }
+
     public R stuLeaveI(StuLPRW stuLPRW) {
         if (studentMapper.stuLeaveI(stuLPRW) != 0)
+            return R.success();
+        else return R.failed();
+    }
+
+    public R stuWeek(StuLPRW stuLPRW) {
+        if (studentMapper.stuWeek(stuLPRW) != 0)
+            return R.success();
+        else return R.failed();
+    }
+
+    public R stuPlan(StuLPRW stuLPRW) {
+        if (studentMapper.stuPlan(stuLPRW) != 0)
+            return R.success();
+        else return R.failed();
+    }
+
+    public R stuRepo(StuLPRW stuLPRW) {
+        if (studentMapper.stuRepo(stuLPRW) != 0)
             return R.success();
         else return R.failed();
     }
